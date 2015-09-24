@@ -1,0 +1,24 @@
+######################
+# LaTeX output files #
+######################
+*.log
+*.aux
+*.bbl
+*.blg
+*.out
+*.lof
+*.lot
+*.loa
+*.toc
+
+######################
+# Other files        #
+######################
+*~
+*.tex.backup
+*.tex.bak
+**/*.tex.bak
+*.pdf
+**/*.pdf
+*.synctex.gz
+*.zip

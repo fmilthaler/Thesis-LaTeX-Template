@@ -1,0 +1,127 @@
+% header/mycommands.tex
+\usepackage{xspace}
+
+% defining some commands:
+
+% spaces:
+\newcommand\R{\mathbb{R}}
+\newcommand\Rr{\mathbb{R}^2}
+\newcommand\Rrr{\mathbb{R}^3}
+\newcommand\di{{d_{\text{i}}}}
+
+% physical paramters:
+\newcommand\rhof{\rho_f}
+\newcommand\rhos{\rho_s}
+\newcommand\gvec{\mathbf{g}}
+\newcommand\alphaa{\alpha_{a}}
+% Pressure:
+\newcommand\pd{\mathbf{p}}
+
+% Fluid velocity:
+\newcommand\uf{\boldsymbol{u_f}}
+\newcommand\uff{\boldsymbol{u_f^f}}
+\newcommand\ufhat{\boldsymbol{\hat{u}_f}}
+\newcommand\uffhat{\boldsymbol{\hat{u}_f^f}}
+% same for discrete variables:
+\newcommand\ufd{\mathbf{u_f}}
+\newcommand\uffd{\mathbf{u_f^f}}
+\newcommand\ufhatd{\mathbf{\hat{u}_f}}
+\newcommand\uffhatd{\mathbf{\hat{u}_f^f}}
+
+% Solid velocity:
+\newcommand\us{\boldsymbol{u_s}}
+\newcommand\uss{\boldsymbol{u_s^s}}
+\newcommand\usf{\boldsymbol{u_s^f}}
+\newcommand\ushat{\boldsymbol{\hat{u}_s}}
+\newcommand\usfhat{\boldsymbol{\hat{u}_s^f}}
+% same for discrete variables:
+\newcommand\usd{\mathbf{u_s}}
+\newcommand\ussd{\mathbf{u_s^s}}
+\newcommand\usfd{\mathbf{u_s^f}}
+\newcommand\ushatd{\mathbf{\hat{u}_s}}
+\newcommand\usfhatd{\mathbf{\hat{u}_s^f}}
+
+% Bulk velocity:
+\newcommand\ubulk{\boldsymbol{u}}
+\newcommand\ubulkf{\boldsymbol{u^f}}
+\newcommand\ubulks{\boldsymbol{u^s}}
+% same for discrete variables:
+\newcommand\ubulkd{\mathbf{u}}
+\newcommand\ubulkfd{\mathbf{u^f}}
+\newcommand\ubulksd{\mathbf{u^s}}
+% Forces:
+\newcommand\Ff{\boldsymbol{F_f}}
+\newcommand\Fff{\boldsymbol{F_f^f}}
+\newcommand\B{\boldsymbol{B}}
+% Viscous terms:
+\newcommand\viscous{\boldsymbol{\tau}}
+
+% Domains:
+\newcommand\V{\Omega}
+\newcommand\VF{\Omega_F}
+\newcommand\VS{\Omega_S}
+\newcommand\Ve{\Omega_e}
+
+% Mesh/Supermesh/Galerkin projection:
+\newcommand\MeshI[1]{\mathcal{T}_{#1}}
+\newcommand\MeshD{\mathcal{T}_D}
+\newcommand\MeshT{\mathcal{T}_T}
+\newcommand\MeshF{\mathcal{T}_F}
+\newcommand\MeshS{\mathcal{T}_S}
+\newcommand\ND{\mathcal{N}_D}
+\newcommand\NT{\mathcal{N}_T}
+\newcommand\NF{\mathcal{N}_F}
+\newcommand\NS{\mathcal{N}_S}
+\newcommand\KD[1][]{\mathcal{K}_{D_{#1}}\xspace}
+\newcommand\KT[1][]{\mathcal{K}_{T_{#1}}\xspace}
+\newcommand\KF[1][]{\mathcal{K}_{F_{#1}}\xspace}
+\newcommand\KS[1][]{\mathcal{K}_{S_{#1}}\xspace}
+
+% discrete:
+\newcommand\MassM{\mathbf{M}}
+\newcommand\AdvecM{\mathbf{A}}
+\newcommand\StressM{\mathbf{K}}
+\newcommand\GradientM{\mathbf{C}}
+\newcommand\ForceM{\mathbf{F}}
+\newcommand\buoyancyV{\mathbf{b}}
+
+% FEM:
+\newcommand\popo{P1-P1\xspace}
+\newcommand\pdpt{$\text{P1}_{\text{DG}}\text{-P2}$\xspace}
+\newcommand\pcg{$\text{P1}_{\text{CG}}$\xspace}
+\newcommand\pdg{$\text{P1}_{\text{DG}}$\xspace}
+
+% Mesh related variables:
+\newcommand\eled{\varepsilon_{\text{el}}}
+\newcommand\hmin{h_{\text{min}}}
+
+% Time:
+\newcommand\dt{\Delta t}
+
+% scientific notation
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}} % better: \num{1e10} from siunitx package
+
+% Integrals:
+\newcommand*\difff[1]{\mathop{}\!\mathrm{#1}}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+%\newcommand*\diffV{\mathop{}\!\mathrm{d}\mathrm{V}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+
+% random words:
+\newcommand\rtree{\textsl{R-tree}\xspace}
+\newcommand\Fluidity{\textsl{Fluidity}\xspace}
+\newcommand\Diamondd{\textsl{Diamond}\xspace}
+\newcommand\Python{\textsl{Python}\xspace}
+
+% over/under brackets:
+\newcommand\myoverbracket[4][black]{\color{#2}\overbracket[1.5pt][5pt]{\color{#1}#3}^{#4}\color{black}}
+\newcommand\myunderbracket[4][black]{\color{#2}\underbracket[1.5pt][5pt]{\color{#1}#3}_{#4}\color{black}}
+% and over/under braces:
+\newcommand\myoverbrace[4][black]{\color{#2}\overbrace{\color{#1}#3}^{#4}\color{black}}
+\newcommand\myunderbrace[4][black]{\color{#2}\underbrace{\color{#1}#3}_{#4}\color{black}}
+
+% colors:
+\colorlet{ncolor}{red!80!black}
+\colorlet{newncolor}{green!60!black}
+\colorlet{radiuscolor}{blue}
+\colorlet{mcolor}{brown!100}

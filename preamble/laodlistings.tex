@@ -1,0 +1,35 @@
+% laodlistings
+
+% % Embed source code package
+\usepackage{listings}
+\lstset{language=Python}	% Identify programming language
+
+% general command to set parameter(s)
+\lstset{
+     nolol=false, % prints listings in listoflistings
+     % numberbychapter=true % number of listings by chapter
+     extendedchars=false, % all international characters are allowed, could cause problems
+     basicstyle=\small\ttfamily, % print whole listing small
+     keywordstyle=\color{gray}\bfseries, % bold magenta keywords
+     % identifierstyle=\bfseries, % nothing happens
+     % commentstyle=\color[RGB]{0,160,0}\small\textit, % green comments
+     % stringstyle=\color[RGB]{160,32,240}\ttfamily, % typewriter type for strings
+     showstringspaces=false, % no special string spaces
+     escapeinside={(*@}{@*)}, % for referencing a linenumber
+     % fancyvrb=true % load fancy verbatims package
+     % numbers=left, % numbering on left side of code
+     stepnumber=1, % numbering stepsize = 1
+     % numberstyle=\tiny, % tiny numbers
+     % numberblanklines=false, % no numbering of blank lines
+     % firstnumber=auto|last|number % first number of code
+     breaklines=true % breaks lines automatically
+}
+
+\usepackage{float}
+\floatstyle{ruled}
+\newfloat{program}{thp}{lop}
+\floatname{program}{Program}
+
+% renew commands for listings
+\renewcommand\lstlistingname{Program}			% default is Listing
+\renewcommand\lstlistlistingname{List of Programs}	% default is Listings

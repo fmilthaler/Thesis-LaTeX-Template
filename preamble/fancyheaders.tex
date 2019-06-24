@@ -4,14 +4,9 @@
 \newcommand\mypagestyle[1]{\pagestyle{#1}}
 \newcommand\mylisthead[1]{\fancyhead[LE,RO]{\textsl{#1}}}
 
-
-
+% using fancyhdr to define header and footer
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-
-%\renewcommand{\chaptermark}[1]{\markboth{\thechapter\ #1}{}}
-%\renewcommand\sectionmark[1]{\markright{\textsl{\thesection\ $\quad$#1}}}
-%\renewcommand\chaptermark[1]{\markboth{\textsl{\chaptername\ \thechapter\ $\quad$#1}}{}}
 \renewcommand\sectionmark[1]{\markright{\textsl{\thesection: #1}}}
 \renewcommand\chaptermark[1]{\markboth{\textsl{\chaptername\ \thechapter: #1}}{}}
 
@@ -20,14 +15,11 @@
 \fancyhead{}
 \fancyhead[LE]{\leftmark}
 \fancyhead[RO]{\rightmark}
-%\fancyhead[R]{\leftmark}
 \fancyfoot{}
 \fancyfoot[C]{}
 \fancyfoot[RO,LE]{\thepage}
-%\fancyfoot[LO,RE]{}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}}
-
 
 % plain
 % redefine the style 'plain', 
@@ -39,14 +31,11 @@
 \renewcommand{\headrulewidth}{0.0pt}
 \renewcommand{\footrulewidth}{0.4pt}}
 
-
-% Lists
+% Lists, e.g. for table of content, list of figures etc.
 \fancypagestyle{lists}{
 \fancyhead{}
-% \fancyhead[RO]{\rightmark}
 \fancyfoot{}
 \fancyfoot[LE,RO]{\thepage}
-%\fancyfoot[LO,RE]{}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}}
 
@@ -55,21 +44,8 @@
 \mypagestyle{myfancy}
 \fancyhead{}
 \fancyhead[LE,RO]{\textsl{\bibname}}
-%\fancyfoot{}
-%\fancyfoot[L]{}
-%\fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}}
-
-
-% % empty
-% \fancypagestyle{empty}{
-% \fancyfoot{}
-% \fancyhead{}
-% \renewcommand{\headrulewidth}{0pt}
-% \renewcommand{\footrulewidth}{0pt}}
-
-
 
 %
 % END

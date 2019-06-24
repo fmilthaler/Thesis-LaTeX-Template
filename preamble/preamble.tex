@@ -1,57 +1,38 @@
-% header.tex
+% preamble.tex
 \documentclass[
-    a4paper,
-    12pt,
-    %oneside,
-    twoside,
-    %bibtotoc,	% Bibliography to table of contents
+    a4paper,    % to be printed on A4 paper
+    12pt,       % default font size
+    %oneside,   % if you want your document to be onesided only
+    twoside,    % if you want your document to be printed on front and back
+    %bibtotoc,	% Adding Bibliography to table of contents
     onecolumn,	% write in one column
-    %idxtotoc,	% index to toc
-    %abstracton
-    %draft
+    %idxtotoc,	% index to table of contents
 ]{report}
 
 % definition layout and print space
 \setlength{\hoffset}{-1in}
-\setlength{\voffset}{-0.65in}%-0.5in
-%\setlength{\voffset}{-0.5in}
-% \setlength{\topmargin}{2.5cm}
-% \setlength{\oddsidemargin}{4cm} % normally using this as margin
-\setlength{\oddsidemargin}{3cm} % reducing to 3cm for IC thesis
-\setlength{\evensidemargin}{\oddsidemargin} % reducing to 3cm for IC thesis
-% \setlength{\textwidth}{16cm}
-%\marginparsep = 11pt
-%\marginparwidth = 54pt
-%\fancyheadoffset[LE,RO]{\marginparsep+\marginparwidth}
-% \setlength{\textwidth}{14.75cm}
-%\setlength{\textwidth}{14.25cm} % normally using this
-% IC rules: content should be centered, thus pagewidth=21cm - 2*3cm (margins) = 15cm of text:
+\setlength{\voffset}{-0.65in}
+\setlength{\oddsidemargin}{3cm} % setting the side margin to 3cm
+\setlength{\evensidemargin}{\oddsidemargin} % side margin to be the same for front/back of pages
+% content is horizontally centered on the page: pagewidth=21cm - 2*3cm (margins) = 15cm of text:
 \setlength{\textwidth}{15cm}
-% \setlength{\textheight}{23,4cm}
-\setlength{\textheight}{23cm}
-% \setlength{\textheight}{21.4cm}
+\setlength{\textheight}{23cm} % 23cm of text height
+% setting separation from header, footer
 \setlength{\headsep}{0.75cm}
 \setlength{\footskip}{30pt}
-\setlength{\headheight}{28pt}
-\setlength{\parindent}{0pt} % no indentation 
+\setlength{\headheight}{28pt} % setting header height
+\setlength{\parindent}{0pt} % no indentation on a new paragraph
 \setlength{\parskip}{1.5ex} % vertical space between paragraphs
-%\setlength{\baselineskip}{1.5\baselineskip} % vertical space between lines (copy to where needed) 
-%\setlength{\textfloatsep}{5.5\baselineskip} % distance between floats on the top or the bottom and the text;
 \setlength{\floatsep}{\baselineskip} % distance between two floats;
 \setlength{\intextsep}{1.5\baselineskip} % distance between floats inserted inside the page text (using h) and the text proper.
-%\setlength{\belowcaptionskip}{1.5\baselineskip}
 \usepackage{varwidth}
 
-% Setting header/footer with fancyheaders
-\input{preamble/fancyheaders}
-\input{preamble/laodlistings}
-% Implementing Abbreviation
-% \input{abbreviation/build_abbreviation}
-% \input{content/nomenclature}
+% Setting header/footer with fancyheaders in separate
+\input{preamble/fancyheaders} % find fancyheader settings here
+\input{preamble/loadlistings} % find listing/code settings here
 
 % Define the layout of chapter titles:
-\usepackage[Bjarne]{fncychap}% Bjarne, Sonny, Lenny, Bjornstrup
-% \ChNameUpperCase \ChNameVar{\raggedleft\normalsize\rm} \ChRuleWidth{0.5pt}
+\usepackage[Bjarne]{fncychap}% options are: Bjarne, Sonny, Lenny, Bjornstrup
 \ChNameAsIs \ChNameVar{\raggedleft\Huge\rm} \ChRuleWidth{0.5pt}
 \ChNumVar{\raggedleft\Huge}
 \ChNameAsIs \ChNameVar{\raggedleft\LARGE\rm} \ChRuleWidth{0.5pt}
@@ -64,37 +45,26 @@
 %\ChRuleWidth{0.5pt} \ChNameUpperCase
 %\ChTitleAsIs
 %
-% \usepackage{changepage}
-% \changepage{textheight}{textwidth} % Change layout in middle of document
-%  {evensidemargin}{oddsidemargin}%
-%  {columnsep}{topmargin}%
-%  {headheight}{headsep}%
-%  {footskip}
 
 \usepackage{calc}
 
-\usepackage{setspace} % \doublespacing, \onehalfspacing, \singlespacing
+% to set line spacing:
+\usepackage{setspace} % provides commands: \doublespacing, \onehalfspacing, \singlespacing
 
 % Formats
-%\usepackage{geometry}
-%\geometry{left=3.5cm,textwidth=14cm,top=1.5cm,textheight=23cm}
-%\usepackage[sf]{titlesec} % Headers in Sans Serif
-%\usepackage{ucs} % UTF-8
 \usepackage{textcomp}
 
 % Numbering of headers:
- \usepackage[nottoc,notlof,notlot]{tocbibind}	% Adding all titles to the toc automatically
+\usepackage[nottoc,notlof,notlot]{tocbibind}	% Adding all titles to the toc automatically
 \setcounter{secnumdepth}{4}	% x+1 section numbering
 \setcounter{tocdepth}{2}	% x+1 section numbering in the table of content (toc)
 %\pagenumbering{arabic}		% options are: % arabic; roman; Roman; alph; Alph
 \usepackage{afterpage}
 \usepackage{nextpage}
 
-
 % ifthen
 \usepackage{ifthen}
 \usepackage{shortvrb}
-
 
 % UK-English
 \usepackage[english]{babel} 
@@ -105,21 +75,16 @@
 \usepackage{amssymb}
 \usepackage{amstext}	
 \usepackage{amsfonts}
-% $\mathbf{N} + \mathrm{N} + \mathcal{N} + \mathsf{N} + \mathtt{N} + \mathit{N} + \mathbf{N} + \mathbb{N} + \mathfrak{N} + \mathscr{N}$
 \usepackage{mathtools} % dynamic behaviour of amsmath
 \usepackage{mathrsfs} % provides rsfs fonts (i.e. for Laplace fcn)
 \usepackage{amsthm}
 \usepackage{units} % package for unit, e.g. $\unit[\frac{1}{8}]{m}$
-\usepackage{siunitx}
-%\sisetup{output-exponent-marker=\textsc{e}}
-%\sisetup{output-exponent-marker=\textsc{e}, bracket-negative-numbers, open-bracket={\text{-}}, close-bracket={}}
-%\sisetup{output-exponent-marker=10, bracket-negative-numbers, open-bracket={\text{-}}, close-bracket={}}
+\usepackage{siunitx} % e.g. \num{1e10} for scientific notation
 
 % TikZ:
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows, intersections, through}
 \usetikzlibrary{decorations.text, decorations.shapes, backgrounds}
-%\usetikzlibrary{positioning, calc, fadings, decorations.pathreplacing}
 % Complex graphics with tikz, e.g. flow charts:
 % \usetikzlibrary{backgrounds,shapes,calc,arrows} 
 \usepackage{pgfplots} % Plots with pgf
@@ -130,21 +95,9 @@
 \pgfplotsset{grid style={solid}}
 
 % Graphics
-% \usepackage[pdftex]{graphicx} % epstopdf support for graphicx
-% \usepackage{epstopdf} % epstopdf package
 \usepackage{graphicx} % package for loading graphics, e.g. png, pdf, eps, etc.
-%\usepackage{subfigure}
-%\usepackage{subfig}
-% Moving away from subfig/subfigure, towards using
-% the more recent caption/subcaption package which
-% has more useful features and is quite easy to use:
+% caption/subcaption for floating objects:
 \usepackage{caption}
-%\captionsetup[figure]{labelfont=bf,%
-                       %listformat=simple,%
-                      %}
-%\captionsetup[table]{labelfont=bf,
-                      %listformat=simple,%
-                      %position=below}
 \captionsetup{%
   %format=hang,%
   indention=2em,%
@@ -172,14 +125,11 @@
 
 % Colour
 \usepackage{color} % package for color support
-%\pagecolor{white} % setting pagecolor to white
-%\usepackage{xcolor}
 \usepackage{colortbl} % for colors in tables
 
-
 % PDF packages
-\usepackage[pdftex]{hyperref}
-\hypersetup{pdfauthor=your name, pdftitle=PhD Thesis}
+\usepackage[luatex]{hyperref}
+\hypersetup{pdfauthor=\name, pdftitle=\thesistitle}
 \hypersetup{colorlinks=true,
         linkcolor=black,
         citecolor=black,
@@ -188,72 +138,36 @@
 
 % URL
 \usepackage{url} % hyphenation for urls
-%\usepackage[activate=normal]{pdfcprot} % moves the hyphen a bit over the right text-border when hyphenating a word.
 
 % % Bibliography hyperref
 \usepackage{natbib} % required for bibliography
-% \bibliographystyle{plain}
-\bibliographystyle{authordate1}
-% \bibliographystyle{authyear}% \usepackage[authoryear,sort]{natbib} % required for bibliography
+\bibliographystyle{plain}
+%\bibliographystyle{authordate1}
 
-% to cite the title, e.g. \usebibentry{id}{title}
-%\usepackage{keyval}
-%\usepackage{usebib}
-%\bibinput{references/books}
-
-% \usepackage[style=authoryear,sorting=nyt]{biblatex}
-% \bibliography{/home/frank/Documents/bibliography/image_processing}
-% \usepackage[authoryear,sort]{natbib}
-%\usepackage{natbib}
-%\usepackage{multibib} % loading multiple bib files
-%\citestyle{natdin}
-% examples of using natbib:
-% \citet{goossens93} Goossens et al. (1993)
-% \citep{goossens93} (Goossens et al., 1993)
-% \citet*{goossens93} Goossens, Mittlebach, and Samarin (1993)
-% \citep*{goossens93} (Goossens, Mittlebach, and Samarin, 1993)
-% \nocite{name} prints non-cited references
-% \nocite{*} automatically prints all references in bib files
-
-
-% Tabellen
+% Tables
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{multirow}
-%\usepackage{slashbox}
 \usepackage{tabularx}
 \usepackage{dcolumn}	% Decimal column alignments
 \newcolumntype{d}[1]{D{.}{.}{#1}}
 
-
 % Pseudocode
-%\usepackage{algorithmic} % replaced by algpseudocode (compatible)
 \usepackage[ruled,chapter]{algorithm} % plain, boxed, ruled
-%\newcommand{\theHalgorithm}{\arabic{algorithm}}
-%\numberwithin{algorithm}{chapter}
 \usepackage{algpseudocode}
-%\usepackage[noend]{algpseudocode}
 \newcommand{\Commentinline}[1]{\hfill// \textit{#1}}
 \renewcommand{\algorithmiccomment}[1]{// \textit{#1}}
 \algnewcommand\algorithmicoutput{\textbf{Output:}}
 \algnewcommand\Output{\item[\algorithmicoutput]}
 
-\usepackage{blindtext}
-
-% Change orientation of single pages:
+% Change orientation of single pages (useful for page filling figures/tables):
 \usepackage{pdflscape} % problem when printing, so only use it for online versions of the document
 \usepackage{rotating} % e.g. \begin{sidewaystable}, or \begin{turn}{angle}
-
-% Index
-%\usepackage{makeidx}
-%\makeindex % Index erzeugen
-
 
 % my own clearpage till odd page
 \newcommand\myclearpage{\clearpage\mypagestyle{empty} {\cleartooddpage}}
 % my own clearpage till odd page
 \newcommand\doubleclearpage{\cleartooddpage}
-
 
 % labels/cross references for 'description' lists:
 \usepackage{enumitem}
@@ -271,6 +185,9 @@
 \usepackage{refcount}
 \newcommand{\fnmark}[1]{\refstepcounter{footnote}\label{#1}\footnotemark[\getrefnumber{#1}]}
 \newcommand{\fntext}[2]{\footnotetext[\getrefnumber{#1}]{#2}}
+
+% for demonstration only
+\usepackage{blindtext}
 
 %
 % END

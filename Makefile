@@ -4,10 +4,11 @@ TEXDIRS=titlepage \
 abstract \
 declaration \
 content/introduction \
-content/conclusion \
 content/reschap1 \
 content/reschap2 \
-content/reschap3
+content/reschap3 \
+content/conclusion \
+content/appendix
 # add more directories here, e.g. directories for result chapters...
 
 IMAGEDIRS=content/reschap1/images \
@@ -16,14 +17,13 @@ content/reschap3/images
 
 CLEANDIRS = $(IMAGEDIRS:%=clean-%)
 
-THESIS=phd_thesis
+THESIS=thesis
 
 SEARCH=
 
 .PHONY: texdirs $(TEXDIRS)
 .PHONY: imagedirs $(IMAGEDIRS)
 .PHONY: cleandirs $(CLEANDIRS)
-.PHONY: all
 .PHONY: fullthesis
 .PHONY: thesis
 .PHONY: run
@@ -83,7 +83,7 @@ texcount:
 	pdftops ${THESIS}.pdf; ps2ascii ${THESIS}.ps | wc -w
 
 clean:
-	@-rm *.aux *.log *.blg *.bbl *.lof *.lot *.toc *.fff *.out *~
+	@-rm *.aux *.log *.blg *.bbl *.lof *.lot *.toc *.fff *.out *.ps *~
 
 allclean: clean $(CLEANDIRS)
 $(CLEANDIRS): 

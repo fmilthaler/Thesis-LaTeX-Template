@@ -2,3 +2,42 @@
 Something smart, \cite{Guttman1984RTree}.
 
 \blindtext
+
+% sideways printed table, good for huge tables:
+\begin{sidewaystable}[p!]
+  \centering
+  \pgfplotstableset{% global config, for example in the preamble
+    % these columns/<colname>/.style={<options>} things define a style
+    % which applies to <colname> only.
+    columns/dof/.style={int detect,column type=r,column name=\textsc{Dof}},
+    columns/error1/.style={
+      sci,sci zerofill,sci sep align,precision=1,sci superscript,
+      column name=$e_1$,
+    },
+    columns/error2/.style={
+      sci,sci zerofill,sci sep align,precision=2,sci 10e,
+      column name=$e_2$,
+    },
+    columns/{grad(log(dof),log(error2))}/.style={
+      string replace={0}{}, % erase ’0’
+      column name={$\nabla e_2$},
+      dec sep align,
+    },
+    columns/{quot(error1)}/.style={
+      string replace={0}{}, % erase ’0’
+      column name={$\frac{e_1^{(n)}}{e_1^{(n-1)}}$}
+    },
+    empty cells with={--}, % replace empty cells with ’--’
+    every head row/.style={before row=\toprule,after row=\midrule},
+    every last row/.style={after row=\bottomrule}
+  }
+  \pgfplotstabletypeset[ % local config, applies only for this table
+    1000 sep={\,},
+    columns/info/.style={
+      fixed,fixed zerofill,precision=1,showpos,
+      column type=r,
+    }
+  ]{content/reschap3/tabledata/pgfplotstable.example1.dat}
+  \caption[A bigger table, printed sideways]{A bigger table, printed sideways, taken from http://pgfplots.sourceforge.net/pgfplotstable.pdf}
+  \label{tab:bigtable}
+\end{sidewaystable}

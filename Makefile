@@ -82,9 +82,6 @@ texcount:
 	@echo "and pdftops ... ps2ascii: "
 	pdftops ${THESIS}.pdf; ps2ascii ${THESIS}.ps | wc -w
 
-colourcount:
-	@${COLOURCOUNT} ${THESIS}.pdf
-
 clean:
 	@-rm *.aux *.log *.blg *.bbl *.lof *.lot *.toc *.fff *.out *~
 

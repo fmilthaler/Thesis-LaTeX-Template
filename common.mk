@@ -17,5 +17,3 @@ GREP=grep --color=auto
 FGREP=fgrep --color=auto
 TEXCOUNT=texcount
 TEXCOUNTOPT=-inc
-COLOURCOUNT=${SCRIPTS}/colour_pagecount/colour_pagecount.py
-

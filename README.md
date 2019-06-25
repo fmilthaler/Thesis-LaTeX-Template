@@ -7,7 +7,7 @@ This template aims at students of any degree (Bachelor, Master, PhD) who start w
 - Examples for fancy figures (using tikz) and Tables (using pgfplotstable), as well as support for very large tables that need to be rotated to fit on a page.
 - File structure to separate files of different chapters
 - A Bash script automatically includes all your `.bib` files in one file `references/references.tex`, that way you can organise and split your references across several `.bib` files without keeping track of them (without manually updating `\bibliography{...}` in your `.tex` file)
-- Besides having a good file structure, this template provides recursive use of Makefiles. The Makefiles ensure a minimum number of compilations to resolve all changes in references/citations, thus the Makefiles offer similar benefits of the tool `latexmk` and they even go beyond. The customised Makefiles make this template stand out from others. They allow for (please find a more detailled description further below):
+- Besides having a good file structure, this template provides recursive use of Makefiles. The **Makefiles ensure a minimum number of compilations to resolve all changes** in references/citations, thus the Makefiles offer **similar benefits of the tool `latexmk` and they even go beyond**. **This template stands out from others due to the customised Makefiles**. They allow for (please find a more detailled description further below):
  - creating your thesis as a pdf,
  - automatically detecting changes in references and automatically running LaTeX on your document again (only if required), until all references (in bibliography or to floating objects) are resolved.
  - creating separate image files (e.g. with tikz) stored in subdirectories,

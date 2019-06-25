@@ -1,5 +1,5 @@
 # Thesis-LaTeX-Template
-This template aims at students of any degree (Bachelor, Master, PhD) who start writing up their thesis in LaTeX, especially useful for students at Imperial College London, as some of the page layout is set according to the requirements (please double check), but generic enough to be useful for any University. Knowledge of how to use LaTeX (and ideally Unix/Linux) is a prerequisite.
+This template aims at students of any degree (Bachelor, Master, PhD) who start writing up their thesis in LaTeX, especially useful for students at Imperial College London, as some of the page layout is set according to the requirements (please double check), but generic enough to be useful at any University. Knowledge of how to use LaTeX (and ideally Unix/Linux) is a prerequisite.
 
 ## Features
 - Supports PDFLaTeX, LuaLaTeX

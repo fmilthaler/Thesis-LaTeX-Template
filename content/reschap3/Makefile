@@ -1,6 +1,6 @@
 include ../../common.mk
 
-TEXFILES=./*.tex
+TEXFILES=$(wildcard *.tex)
 
 .PHONY: texfiles $(TEXFILES)
 

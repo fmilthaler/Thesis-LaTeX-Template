@@ -1,0 +1,117 @@
+%% Generated file to plot data from a datafile using pgfplots
+
+%================================================================================
+%|                                                                              |
+%| If you plot a huge amount of data, and TeX runs out on its main memory,      |
+%| you have two options that are suggested by pgfplots' manual:                 |
+%|  1. You could try lualatex instead of pdflatex                               |
+%|  2. You could modify some of latex's settings in the texmf.cnf. How to do    |
+%|     for your LaTeX distrobution, Google is your friend.                      |
+%|                                                                              |
+%| The documentclass 'standalone' is used to crop white space, if that is not   |
+%| working for you, you can use article as your document class, and  uncomment  |
+%| the 3 lines for using the package 'tightpage'. As a last resort, you can     |
+%| always use the command-line tool 'pdfcrop'.                                  |
+%| The 'Preview package is used to remove white space around the tikzpicture    |
+%| environment. If this fails for you, and/or alternatively you can comment     |
+%| the relevant lines just above the '\begin{document}' command                 |
+%| and make use of the external tool pdfcrop.                                   |
+%|                                                                              |
+%================================================================================
+
+\documentclass[9pt]{standalone}
+%\documentclass[9pt]{article}
+
+% Set page legths (uncomment for using article and tightpage/pdfcrop):
+%\special{papersize=50cm,50cm}
+%\hoffset-0.8in
+%\voffset-0.8in
+%\setlength{\paperwidth}{50cm}
+%\setlength{\paperheight}{50cm}
+%\setlength{\textwidth}{45cm}
+%\setlength{\textheight}{45cm}
+%\topskip0cm
+%\setlength{\headheight}{0cm}
+%\setlength{\headsep}{0cm}
+%\setlength{\topmargin}{0cm}
+%\setlength{\oddsidemargin}{0cm}
+% set the pagestyle to empty (removing pagenumber etc)
+\pagestyle{empty}
+
+% load packages:
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsfonts}
+\usepackage{textcomp}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+%\usepgfplotslibrary{external}
+%\tikzexternalize
+
+% Use newest spacing options (from v. 1.3 on)
+\pgfplotsset{compat=1.10}
+\pgfplotsset{width=10cm}
+\pgfplotsset{height=6cm}
+
+\pgfplotsset{grid style={solid}}
+
+% Removing white space by using 'standalone' as the document class, uncomment the following as an alternative:
+% Remove white space from generated pdf,
+% thus otaining a pdf with only the picture that can
+% easily be included in a(nother) tex-document via the usual \includegraphic command.
+% Benefit: 1. you can keep your pictures organised in a subfolder and
+%          2. the picture remains a vector graphic :)
+%\usepackage[active, tightpage]{preview}
+%\PreviewEnvironment{tikzpicture}
+%\setlength\PreviewBorder{0pt}
+% Alternatively, delete the three lines above and run 'pdfcrop filename.pdf',
+% the result should be the same.
+
+\begin{document}
+
+\centering
+
+\begin{tikzpicture}
+  \begin{axis}[
+        axis background/.style={fill=gray!20},
+        axis x line*=bottom, axis y line*=left,
+        xmode=log, % logarithmic x axis
+        log basis x=2, % log basis, if empty the natural logarithm is used
+        % If more precision on x or y axis is needed, uncomment the relevant lines below:
+        % scaled x ticks=false,
+        % x tick label style={/pgf/number format/fixed, /pgf/number format/precision=3}, % 3 for 3 floating point digits
+        % scaled y ticks=false,
+        % y tick label style={/pgf/number format/fixed, /pgf/number format/precision=3}, % 3 for 3 floating point digits
+        x tick label style={font=\tiny},
+        y tick label style={font=\tiny},
+        scale only axis, % might get 'dimension too large' error if switched on
+        minor tick num=1,
+        xmin=0, xmax=1024,
+        ymin=0, ymax=,
+        % restrict x to domain=-10:10, % use this if you get a 'dimension too large' error
+        % restrict y to domain=-10:10, % use this if you get a 'dimension too large' error
+        xlabel={Number of cores},
+        ylabel={Parallel Efficiency $E_p$ $[\%]$},
+        label style={font=\footnotesize},
+        xtick={8,16,32,64,128,256,512,1024},
+        legend cell align=left, % best if aligned left
+        legend style={legend pos=north east,
+                      % specify legend entries:
+                      % example: legend entries={entry1, entry2, entry3},
+                      % if legend entries are too long, specify max text width/depth:
+                      % nodes={text width=30pt,text depth=40},
+                      % if you want to put the legend outside the figure envirmonent, do:
+                      % legend to name=legendlabel,
+                      % and then '\ref{legendlabel}' where you want the legend to appear
+                      % don't forget to run pdflatex twice for it to pick up the changed reference!
+                      font=\tiny},
+        grid=both
+        ]
+    \addplot[color=blue, solid, mark=o, line join=round] table[x=no_cores, y=pareff, col sep=tab] {../table-data/speed_up_table_data.pgfdat};
+    %\addlegendentry{speed-up};
+  \end{axis}
+\end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,213 @@
+\documentclass[11pt,landscape]{article}
+
+% Set page legths
+\special{papersize=50cm,50cm}
+\hoffset-0.8in
+\voffset-0.8in
+\setlength{\paperwidth}{50cm}
+\setlength{\paperheight}{50cm}
+\setlength{\textwidth}{45cm}
+\setlength{\textheight}{45cm}
+\topskip0cm
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\topmargin}{0cm}
+\setlength{\oddsidemargin}{0cm}
+% set the pagestyle to empty (removing pagenumber etc)
+\pagestyle{empty}
+
+% load packages:
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsfonts}
+\usepackage{units}
+
+% TikZ:
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, intersections, through}
+\usetikzlibrary{decorations.text, decorations.shapes, backgrounds}
+\usetikzlibrary{positioning}
+\usetikzlibrary{calc,fadings,decorations.pathreplacing}
+\usetikzlibrary{calc}
+\usepackage{pgfplots}
+%\usepgfplotslibrary{external}
+%\tikzexternalize
+
+% Use newest spacing options (from v. 1.3 on)
+\pgfplotsset{compat=newest}
+\pgfplotsset{width=10cm}
+\pgfplotsset{height=6cm}
+
+% Remove white space from generated pdf,
+% thus otaining a pdf with only the picture that can
+% easily be included in a(nother) tex-document via the usual \includegraphic command.
+% Benefit: 1. you can keep your pictures organised in a subfolder and
+%          2. the picture remains a vector graphic :)
+\usepackage[active, tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{3pt}
+% Alternatively, delete the three lines above and run 'pdfcrop filename.pdf',
+% the result should be the same.
+
+% defining position:
+\newdimen\nodeSize
+\nodeSize=0mm
+\newdimen\nodeDist
+\nodeDist=20pt
+
+\begin{document}
+  \centering
+  \begin{tikzpicture}[scale=4,
+      node/.style={draw,circle,inner sep=0,outer sep=0,minimum size=\nodeSize,node distance=\nodeDist},
+      position/.style args={#1:#2 from #3}{
+              at=(#3.#1), anchor=#1+180, shift=(#1:#2)
+      },
+      line/.style={-,thick},
+      helpmeasure/.style={line,thin,gray},
+      backline/.style={line,very thick,loosely dashed,color=black,opacity=0.75},
+      frontline/.style={line,very thick,color=black},
+      backface/.style={color=blue!20,opacity=0.8},
+      frontface/.style={color=blue!20,opacity=0.5},
+      corner/.style={circle,inner sep=0pt, outer sep=0pt, minimum size=0pt},
+      measure/.style={<->,>=stealth',shorten >=1pt,gray!70!black,densely dashed},
+      extended line/.style={shorten >=-#1,shorten <=-#1},
+      extended line/.default=1cm,
+      axisarrow/.style={->,>=stealth',shorten >=1pt,thin,gray}
+      ]
+
+    % defining colors:
+    \colorlet{measurecolor}{gray!70!black}
+    \colorlet{spherecolor}{red!75!white}
+    \colorlet{wallcolor}{blue!20}
+    \colorlet{hiddencolor}{gray!80!black}
+
+	  %% Vanishing points for perspective handling
+	  \coordinate (P1) at (5cm,4cm); % left vanishing point (To pick)
+	  \coordinate (P2) at (-12.5cm,4cm); % right vanishing point (To pick)
+
+	  %% (A1) and (A2) defines the 2 central points of the cuboid
+	  \coordinate (A1) at (0em,0cm); % central top point (To pick)
+	  \coordinate (A2) at (0em,-2cm); % central bottom point (To pick)
+    
+	  %% (A3) to (A8) are computed given a unique parameter (or 2) .8
+	  % You can vary .8 from 0 to 1 to change perspective on left side
+	  \coordinate (A3) at ($(P1)!.8!(A2)$); % To pick for perspective 
+	  \coordinate (A4) at ($(P1)!.8!(A1)$);
+
+	  % You can vary .8 from 0 to 1 to change perspective on right side
+	  \coordinate (A7) at ($(P2)!.7!(A2)$);
+	  \coordinate (A8) at ($(P2)!.7!(A1)$);
+
+	  %% Automatically compute the last 2 points with intersections
+	  \coordinate (A5) at
+	    (intersection cs: first line={(A8) -- (P1)},
+			  second line={(A4) -- (P2)});
+	  \coordinate (A6) at
+	    (intersection cs: first line={(A7) -- (P1)}, 
+			  second line={(A3) -- (P2)});
+
+    %% Possibly draw back faces
+    \fill[backface,color=blue!75] (A2) -- (A3) -- (A6) -- (A7) -- cycle; % face 6
+    \fill[backface,color=blue!50] (A3) -- (A4) -- (A5) -- (A6) -- cycle; % face 3
+    \fill[backface,color=blue!30] (A5) -- (A6) --  (A7) -- (A8) -- cycle; % face 4
+	  % back (hidden) lines:
+	  \draw[backline] (A5) -- (A6);
+	  \draw[backline] (A3) -- (A6);
+	  \draw[backline] (A7) -- (A6);
+
+    % draw sphere before drawing front faces and lines:
+    \coordinate (SC) at (-2,0.45); % centre point of sphere
+    \def\R{0.25} % sphere radius
+    \fill[ball color=spherecolor, opacity=0.75] (SC) circle (\R); % 3D lighting effect
+    \draw[backline,solid] (SC) circle (\R);
+    % also drawing helpmeasure lines before drawing the rest of the (fluid) box:
+    \node[node,position=90:{1.15} from SC] (SCm1) {};
+    \node[node,position=90:{5.5} from SC] (SCm2) {};
+    \path (A5) -- node[node,midway] (A5A8c) {} (A8);
+    \path (A6) -- node[node,midway] (A6A7c) {} (A7);
+    \path (A6A7c) -- node[node,midway] (inletC) {} (A5A8c);
+    \node[node,position=90:{5.5} from inletC] (SCm3a) {};
+    % now construct 2 paths, one up from inletC, and one to the left from above the sphere
+    % then create a node at the intersection of those paths which we'll use for the measuring line:
+    \path[name path=inletC--SCm3] (inletC) -- (SCm3a);
+    \node[node,position=180:{6} from SCm2] (SCm3b) {};
+    \path[name path=SCm2--SCm3b] (SCm2) -- (SCm3b);
+    \path[name intersections={of=inletC--SCm3 and SCm2--SCm3b,by=SCm3}];
+    \draw[helpmeasure,opacity=0.75] (SCm1) -- (SCm2);
+    \node[node,position=90:{1.1} from SCm3] (SCm3c) {};
+    \draw[helpmeasure] (inletC) -- (SCm3c);
+    \draw[measure,postaction={decoration={text along path, text color=measurecolor, text={|\Large|1m}, text align={align=center}, raise=3pt}, decorate}] (SCm3c) -- (SCm2);
+    % same procedure for the measurement line: sidewall to sphere
+    % first, node below sphere, then helpmeasure line from below sphere to bottom surface:
+    \node[node,position=270:{1.15} from SC] (SCmb1) {};
+    \node[node,position=270:{3} from SCmb1] (SCmb2) {};
+    % for that to work, we need to find the intersection between the downwards vector from the sphere
+    % and the vector going from the centre point of the bottom inletface line, and the bottom outlet face line:
+    \path (A2) -- node[node,midway] (A2A3c) {} (A3);
+    \path[name path=inlet--outlet--bottom] (A6A7c) -- (A2A3c);
+    \path[name path=SCmb1--SCmb2] (SCmb1) -- (SCmb2);
+    \path[name intersections={of=SCmb1--SCmb2 and inlet--outlet--bottom,by=below-sphere}];
+    % finally we can draw the line from right below the sphere to the bottom face of the box:
+    \draw[helpmeasure] (SCmb1) -- (below-sphere);
+    % now drawing a path somewhat parallel to the inlet (bottom) line in z-direction, through node 'below-sphere':
+    \node[node,position=211:{4} from below-sphere] (bottom-SCm1) {};
+    \path[extended line=4cm,name path=below-sphere-z-path] (bottom-SCm1) -- (below-sphere);
+    % for testing:
+    %\draw[very thick, red, extended line=4cm] (bottom-SCm1) -- (below-sphere);
+    % and the two paths for the bottom lines going from inlet to outlet surface:
+    \path[name path=A6A3] (A6) -- (A3);
+    \path[name path=A7A2] (A7) -- (A2);
+    % find intersections:
+    \path[name intersections={of=below-sphere-z-path and A7A2, by=SCm-on-A7A2}];    
+    \node[node,position=31:{4} from below-sphere] (bottom-SCm2) {};
+    \path[name path=below-sphere-z-path-2] (below-sphere) -- (bottom-SCm2);
+    \path[name intersections={of=below-sphere-z-path-2 and A6A3, by=SCm-on-A6A3}];
+    % now all nodes are defined, so we can draw the measurement lines:
+    \draw[measure,postaction={decoration={text along path, text color=black, text={|\Large|1m}, text align={align=center}, raise=3pt}, decorate}] (SCm-on-A7A2) -- (below-sphere);
+    \draw[measure,postaction={decoration={text along path, text color=black, text={|\Large|1m}, text align={align=center}, raise=3pt}, decorate}] (below-sphere) -- (SCm-on-A6A3);
+
+    % front faces:
+    \fill[frontface,color=blue!60,opacity=0.5] (A1) -- (A8) -- (A7) -- (A2) -- cycle; % face 1
+    \fill[frontface,color=blue!45,opacity=0.5] (A1) -- (A2) -- (A3) -- (A4) -- cycle; % f2
+    \fill[frontface,color=blue!75,opacity=0.5] (A1) -- (A4) -- (A5) -- (A8) -- cycle; % f5
+
+	  %% Possibly draw front lines
+	  \draw[frontline] (A1) -- (A2);
+	  \draw[frontline] (A3) -- (A4);
+	  \draw[frontline] (A7) -- (A8);
+	  \draw[frontline] (A1) -- (A4);
+	  \draw[frontline] (A1) -- (A8);
+	  \draw[frontline] (A2) -- (A3);
+	  \draw[frontline] (A2) -- (A7);
+	  \draw[frontline] (A4) -- (A5);
+	  \draw[frontline] (A8) -- (A5);
+	  
+    % measurements:
+    % measure bottom line in x direction:
+    \node[node,position=210:{\nodeDist} from A7] (A7xm) {};
+    \node[node,position=230:{\nodeDist} from A2] (A2xm) {};
+    \draw[helpmeasure] (A2xm) -- (A2);
+    \draw[helpmeasure] (A7xm) -- (A7);
+    \draw[measure,postaction={decoration={text along path, text color=measurecolor, text={|\Large|3m}, text align={align=center}, raise=3pt}, decorate}] (A7xm) -- (A2xm);
+    % measure right bottom in z direction:
+    \node[node,position=-26:{\nodeDist} from A2] (A2zm) {};
+    \node[node,position=-22:{\nodeDist} from A3] (A3zm) {};
+    \draw[helpmeasure] (A2zm) -- (A2);
+    \draw[helpmeasure] (A3zm) -- (A3);
+    \draw[measure,postaction={decoration={text along path, text color=measurecolor, text={|\Large|2m}, text align={align=center}, raise=3pt}, decorate}] (A2zm) -- (A3zm);
+    % measure right side in y direction:
+    \node[node,position=0:{\nodeDist} from A3] (A3ym) {};
+    \node[node,position=0:{\nodeDist} from A4] (A4ym) {};
+    \draw[helpmeasure] (A3ym) -- (A3);
+    \draw[helpmeasure] (A4ym) -- (A4);
+    \draw[measure,postaction={decoration={text along path, text color=measurecolor, text={|\Large|2m}, text align={align=center}, raise=3pt}, decorate}] (A3ym) -- (A4ym);
+
+    % adding axis:
+    \node[corner,at=(A7), shift=(-75:4cm)] (axiso) {};
+    \draw[axisarrow] (axiso)  -- +(330:0.35cm) node[corner,label=above:$x$] (axisox) {};
+    \draw[axisarrow] (axiso)  -- +(35:0.35cm) node[corner,label=above:$y$] (axisoy) {};
+    \draw[axisarrow] (axiso)  -- +(90:0.35cm) node[corner,label=above:$z$] (axisoz) {};
+
+  \end{tikzpicture}
+\end{document}

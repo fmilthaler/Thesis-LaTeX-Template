@@ -1,0 +1,72 @@
+% PGFPlotsTable settings are defined below.
+% To load them:
+% \input{table-data/pgftablesettings_speed_up_table.tex}
+
+\pgfplotstableset{
+    %    col sep=&,row sep=\\
+    %    col sep=space, ignore chars={(,),\ ,\#}
+    col sep=tab,
+    % Coloring:
+    every even row/.style={before row={\rowcolor[gray]{0.85}}},
+    % Table header:
+    every head row/.style={before row=\toprule,after row=\midrule},
+    every last row/.style={after row=\bottomrule},
+    % Set column parameters:
+    columns={simid, speed-up, num_nodes_per_core, no_cores, pareff, totalwalltime, solve_time, num_nodes},
+    columns/simid/.style={column name=cores,
+        string type,
+        string replace={8}{8},
+        string replace={16}{16},
+        string replace={32}{32},
+        string replace={64}{64},
+        string replace={128}{128},
+        string replace={256}{256},
+        string replace={1024}{1024},
+        column type={r|},
+    },
+    columns/speed-up/.style={column name=$S_p$,
+        sci, sci zerofill,
+        precision=3, fixed,
+        dec sep align,
+    },
+    columns/num_nodes_per_core/.style={column name=nodes/cores,
+        sci, sci zerofill,
+        precision=3, fixed,
+        dec sep align,
+    },
+    columns/no_cores/.style={column name=cores,
+        sci,
+        precision=0, fixed,
+        dec sep align,
+    },
+    columns/pareff/.style={column name=$E_p$,
+        sci, sci zerofill,
+        precision=1, fixed,
+        dec sep align, fixed zerofill,
+        postproc cell content/.append code={
+            \ifnum1=\pgfplotstablepartno
+              \pgfkeysalso{@cell content/.add={$\unit[}{]{\%}$}}%
+            \fi
+        },
+    },
+    columns/totalwalltime/.style={column name=totalwalltime,
+        sci, sci zerofill,
+        precision=3, fixed,
+        dec sep align,
+    },
+    columns/solve_time/.style={column name=$t_{\text{solve}}$,
+        sci, sci zerofill,
+        precision=1, fixed,
+        dec sep align, fixed zerofill,
+        postproc cell content/.append code={
+            \ifnum1=\pgfplotstablepartno
+              \pgfkeysalso{@cell content/.add={$\unit[}{]{s}$}}%
+            \fi
+        },
+    },
+    columns/num_nodes/.style={column name=nodes,
+        sci, sci zerofill,
+        precision=3, fixed,
+        dec sep align,
+    },
+}

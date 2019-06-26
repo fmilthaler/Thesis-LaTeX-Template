@@ -1,43 +1,53 @@
 \section{Mathematical Model}
 Something smart, \cite{DoeJane2001}. Also, see the sideways printed Table \ref{tab:bigtable} on page \pageref{tab:bigtable}.
 
-\blindtext
+Moreover, Figure \ref{fig:parefficiency} shows another example of pgfplots beautifully plotting data from a data file. Table \ref{tab:parefficiency} shows the same data as a table.
 
-% sideways printed table, good for huge tables:
-\begin{sidewaystable}[p!]
-  \centering
-  \pgfplotstableset{% global config, for example in the preamble
-    % these columns/<colname>/.style={<options>} things define a style
-    % which applies to <colname> only.
-    columns/dof/.style={int detect,column type=r,column name=\textsc{Dof}},
-    columns/error1/.style={
-      sci,sci zerofill,sci sep align,precision=1,sci superscript,
-      column name=$e_1$,
-    },
-    columns/error2/.style={
-      sci,sci zerofill,sci sep align,precision=2,sci 10e,
-      column name=$e_2$,
-    },
-    columns/{grad(log(dof),log(error2))}/.style={
-      string replace={0}{}, % erase ’0’
-      column name={$\nabla e_2$},
-      dec sep align,
-    },
-    columns/{quot(error1)}/.style={
-      string replace={0}{}, % erase ’0’
-      column name={$\frac{e_1^{(n)}}{e_1^{(n-1)}}$}
-    },
-    empty cells with={--}, % replace empty cells with ’--’
-    every head row/.style={before row=\toprule,after row=\midrule},
-    every last row/.style={after row=\bottomrule}
-  }
-  \pgfplotstabletypeset[ % local config, applies only for this table
-    1000 sep={\,},
-    columns/info/.style={
-      fixed,fixed zerofill,precision=1,showpos,
-      column type=r,
-    }
-  ]{content/reschap3/table-data/pgfplotstable.example1.dat}
-  \caption[A bigger table, printed sideways]{A bigger table, printed sideways, taken from http://pgfplots.sourceforge.net/pgfplotstable.pdf}
-  \label{tab:bigtable}
+% include table
+\input{content/reschap3/speed_up_table_include}
+
+\begin{figure}[h]
+ \centering
+ \includegraphics[scale=0.75]{content/reschap3/images/pgfplot_texfile_parallel_efficiency_analysis_logscale}
+ \caption{PGFPlot with a logarithmic scale on the $x$-axis. Parallel scalability of some computational experiment. See also Table \ref{tab:parefficiency}.}
+ \label{fig:parefficiency}
+\end{figure}
+
+%% sideways printed table, good for huge tables:%\begin{table}
+\begin{sidewaystable}[p]
+ \centering
+ \pgfplotstableset{% global config, for example in the preamble
+   % these columns/<colname>/.style={<options>} things define a style
+   % which applies to <colname> only.
+   columns/dof/.style={int detect,column type=r,column name=\textsc{Dof}},
+   columns/error1/.style={
+     sci,sci zerofill,sci sep align,precision=1,sci superscript,
+     column name=$e_1$,
+   },
+   columns/error2/.style={
+     sci,sci zerofill,sci sep align,precision=2,sci 10e,
+     column name=$e_2$,
+   },
+   columns/{grad(log(dof),log(error2))}/.style={
+     string replace={0}{}, % erase ’0’
+     column name={$\nabla e_2$},
+     dec sep align,
+   },
+   columns/{quot(error1)}/.style={
+     string replace={0}{}, % erase ’0’
+     column name={$\frac{e_1^{(n)}}{e_1^{(n-1)}}$}
+   },
+   empty cells with={--}, % replace empty cells with ’--’
+   every head row/.style={before row=\toprule,after row=\midrule},
+   every last row/.style={after row=\bottomrule}
+ }
+ \pgfplotstabletypeset[ % local config, applies only for this table
+   1000 sep={\,},
+   columns/info/.style={
+     fixed,fixed zerofill,precision=1,showpos,
+     column type=r,
+   }
+ ]{content/reschap3/table-data/pgfplotstable.example1.dat}
+ \caption[A bigger table, printed sideways]{A bigger table, printed sideways, taken from http://pgfplots.sourceforge.net/pgfplotstable.pdf}
+ \label{tab:bigtable}
 \end{sidewaystable}

@@ -32,13 +32,13 @@ Knowledge of how to use LaTeX (and ideally Makefiles) is a prerequisite.
 ## Features
 - Supports PDFLaTeX, LuaLaTeX
 - Customised Page layouts, Header and Footer styles
-- Examples for fancy figures (using tikz) and Tables (using pgfplotstable), as well as support for very large tables that need to be rotated to fit on a page.
+- Examples for fancy figures (using Ti*k*Z) and Tables (using pgfplotstable), as well as support for very large tables that need to be rotated to fit on a page.
 - File structure to separate files of different chapters
 - A Bash script automatically includes all your `.bib` files in one file `references/references.tex`, that way you can organise and split your references across several `.bib` files without keeping track of them (without manually updating `\bibliography{...}` in your `.tex` file)
 - Besides having a good file structure, this template provides recursive use of Makefiles. The **Makefiles ensure a minimum number of compilations to resolve all changes** in references/citations, thus the Makefiles offer **similar benefits of the tool `latexmk` and they even go beyond**. **This template stands out from others due to the customised Makefiles**. They allow for (please find a more detailled description further below):
  - creating your thesis as a pdf,
  - automatically detecting changes in references and automatically running LaTeX on your document again (only if required), until all references (in bibliography or to floating objects) are resolved.
- - creating separate image files (e.g. with tikz) stored in subdirectories,
+ - creating separate image files (e.g. with Ti*k*Z) stored in subdirectories,
  - print out warnings from LaTeX output files,
  - spellcheck your `.tex` files,
  - search a pattern in all your `.tex` files (in all subdirectories) to quickly find a certain pattern,

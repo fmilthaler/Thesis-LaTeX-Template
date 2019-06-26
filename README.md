@@ -31,7 +31,7 @@ See a list and short description of directories and files in this repository to 
   + `mycommands.tex` (defining custom commands, e.g. mathematical notation)
 + `titlepage/`
   + `Makefile`
-  + `logo-placeholder.png` (placeholder logo)
+  + `logo_placeholder.png` (placeholder logo)
   + `titlepage_wo_logo.tex` (title page without a logo, this is the default)
   + `titlepage.tex` (title page with a logo)
 + `declaration/`

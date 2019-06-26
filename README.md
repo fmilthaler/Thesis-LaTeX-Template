@@ -121,20 +121,20 @@ See a list and short description of directories and files in this repository to 
       + `fem_basis_function_linear_cg.tex`
       + `fem_basis_function_constant_dg.tex`
       + `1way_coupling_prescribed_rotation.tex`
-    + `tabledata/` (sub-directory for `.csv` files that are used for tables)
+    + `table-data/` (subdirectory for `.csv` files that are used for tables)
     + `python/`
       + `example_code.py` (python code that is printed as it is)
   + `reschap2/` (2nd main/result chapter)
     + `Makefile`
     + `main.tex`
-    + `images/` (sub-directory for plots/images/pictures etc.)
-    + `tabledata/` (sub-directory for `.csv` files that are used for tables)
+    + `images/` (subdirectory for plots/images/pictures etc.)
+    + `table-data/` (subdirectory for `.csv` files that are used for tables)
       + `scientists.csv`
   + `reschap3/` (3rd main/result chapter)
     + `Makefile`
     + `main.tex`
-    + `images/` (sub-directory for plots/images/pictures etc.)
-    + `tabledata/` (sub-directory for `.csv` files that are used for tables)
+    + `images/` (subdirectory for plots/images/pictures etc.)
+    + `table-data/` (subdirectory for `.csv` files that are used for tables)
       + `pgfplotstable.example1.dat`
   + `conclusion/`
     + `Makefile`

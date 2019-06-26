@@ -18,6 +18,17 @@ layout regulations.
 
 Knowledge of how to use LaTeX (and ideally Makefiles) is a prerequisite.
 
+-------------------------------------------------------------------------
+
+## Table of contents
+ - [Features](#Features)
+ - [How to use it](#How-to-use-it)
+   - [The Makefile](#The-Makefile)
+ - [File Structure](#File-Structure)
+ - [Questions](#Questions)
+
+-------------------------------------------------------------------------
+
 ## Features
 - Supports PDFLaTeX, LuaLaTeX
 - Customised Page layouts, Header and Footer styles
@@ -34,6 +45,8 @@ Knowledge of how to use LaTeX (and ideally Makefiles) is a prerequisite.
  - perform a word count on your document,
  - clean your directory (and subdirectories) from output files
 
+-------------------------------------------------------------------------
+
 ## How to use it
 1. Use a Linux/Mac OS X system (Windows works, but the Makefiles/bash script won't work there)
 2. Download the repository from GitHub
@@ -41,6 +54,8 @@ Knowledge of how to use LaTeX (and ideally Makefiles) is a prerequisite.
 4. In the main directory, execute `make fullthesis` on the command-line (for Linux/Mac OS X users, Windows users are required to compile the files manually, sorry).
 5. Open `thesis.pdf` with a PDF reader of your choice, e.g. `evince`.
 6. Now go in and edit and add files, start with `./preamble/myinformation.tex` and `./thesis.tex`.
+
+-------------------------------------------------------------------------
 
 ### The Makefile
 As mentioned above, one of the main features of this template is the comprehensive use of recursive Makefiles. Please see a list of targets and their description below:
@@ -56,6 +71,8 @@ As mentioned above, one of the main features of this template is the comprehensi
 - `search`: searches for a user defined pattern in all `.tex` files in all subdirectories defined in `TEXDIRS` (this variable is defined in this Makefile); usage: `make search SEARCH=<pattern>`
 - `clean`: removes all output files from the main directory (except for .pdf files)
 - `allclean`: first executes `clean`, then: removes all output files (also .pdf files) from all subdirectories defined in `IMAGEDIRS` (this variable is defined in this Makefile);
+
+-------------------------------------------------------------------------
 
 ## File Structure
 See a list and short description of directories and files in this repository to understand how the files are organised and where to find what.
@@ -125,6 +142,7 @@ See a list and short description of directories and files in this repository to 
     + `Makefile`
     + `appendix.tex`
 
+-------------------------------------------------------------------------
 
 ## Questions
 Feel free to ask if you have questions. Other than that, good luck!

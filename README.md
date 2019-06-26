@@ -16,7 +16,8 @@ at Imperial College London. It is quite generic, thus it is useful for dissertat
 at any University with minor adjustments to the layout to conform with your University's
 layout regulations.
 
-Knowledge of how to use LaTeX (and ideally Makefiles) is a prerequisite.
+Knowledge of how to use LaTeX is a prerequisite, while knowledge of Makefiles is
+optional.
 
 -------------------------------------------------------------------------
 
@@ -49,11 +50,13 @@ Knowledge of how to use LaTeX (and ideally Makefiles) is a prerequisite.
 
 ## How to use it
 1. Use a Linux/Mac OS X system (Windows works, but the Makefiles/bash script won't work there)
-2. Download the repository from GitHub
-3. Make sure you have a LaTeX distribution installed on your system, e.g. TeXLive
-4. In the main directory, execute `make fullthesis` on the command-line (for Linux/Mac OS X users, Windows users are required to compile the files manually, sorry).
+2. Make sure you have a LaTeX distribution installed on your system, e.g. TeXLive
+3. Download the repository from GitHub
+4. In the main directory, execute `make fullthesis` on the command-line (for Linux/Mac OS X users, Windows users are required to compile the files manually, sorry). `fullthesis` will not only compile your document, but will also compile some standalone Ti*k*Z graphics that are then included in your document/thesis.
 5. Open `thesis.pdf` with a PDF reader of your choice, e.g. `evince`.
-6. Now go in and edit and add files, start with `./preamble/myinformation.tex` and `./thesis.tex`.
+6. Now go in and edit and add files, start with `./preamble/myinformation.tex` and `./thesis.tex`, e.g. set your name, university, title etc.
+7. With the first few changes in the text, execute `make` (or `make thesis`) on the command-line. This will not compile the aforementioned graphics in subdirectories, but will only recompile your main document/thesis `thesis.tex`.
+8. If you need to adjust some layout settings: you can find/adjust these in `./preamble/preamble.tex`, below the definition of the `documentclass`.
 
 -------------------------------------------------------------------------
 

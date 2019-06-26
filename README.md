@@ -34,7 +34,30 @@ Knowledge of how to use LaTeX (and ideally Makefiles) is a prerequisite.
  - perform a word count on your document,
  - clean your directory (and subdirectories) from output files
 
-## How it is organised
+## How to use it
+1. Use a Linux/Mac OS X system (Windows works, but the Makefiles/bash script won't work there)
+2. Download the repository from GitHub
+3. Make sure you have a LaTeX distribution installed on your system, e.g. TeXLive
+4. In the main directory, execute `make fullthesis` on the command-line (for Linux/Mac OS X users, Windows users are required to compile the files manually, sorry).
+5. Open `thesis.pdf` with a PDF reader of your choice, e.g. `evince`.
+6. Now go in and edit and add files, start with `./preamble/myinformation.tex` and `./thesis.tex`.
+
+### The Makefile
+As mentioned above, one of the main features of this template is the comprehensive use of recursive Makefiles. Please see a list of targets and their description below:
+- `ref`: executes the target `references` in `./references/Makefile`, which in turn executes the bash script `./references/create_bib_list.sh` which collects the names of all `.bib` files in `./references/` and includes them in a newly created file `./references/references.tex`. This can be included in your main LaTeX file (here: `thesis.tex`); example: imagine you have *A.bib*, *B.bib*, *C.bib* in the directory `./references/`, `make ref` creates `./references/references.tex` which has the following LaTeX command in it: `\bibliography{references/A,references/B,references/C}`
+- `run`: runs LaTeX (by default: `pdflatex`) on `thesis.tex`; all required files, such as image files are required to be in place or this operation will fail
+- `bib`: first executes `ref`, then: if `thesis.aux` does not exist, it executes `run`, followed by BibTeX (`bibtex`) on `thesis.tex`
+- `thesis`: first it executes `run` and `bib` in that order; then the logfile `thesis.log` is scanned for references of missing/changed citations, multiple/changed labels, and rerun suggestions, and executes `run` at each check of the logfile; finally it prints out the warnings LaTeX provides in its logfile by executing `make warnings` (see below)
+- `imagedirs`: executes the target `all` in each subdirectory defined in `IMAGEDIRS` (this variable is defined in this Makefile); this is useful if some images are done with Ti*k*Z, thus you can create standalone pdf files (which are vector graphics) of your Ti*k*Z graphics that you then include in your main LaTeX document. This target `imagedirs` allows you to compile all of these graphics to be compiled on the fly
+- `fullthesis`: executes `allclean`, `imagedirs`, `ref`, `thesis` in that order; basically it removes all previous output files (in this and subdirectories) and builds your thesis from scratch (including graphics, e.g. Ti*k*Z graphics as explained above)
+- `warnings`: scans the LaTeX logfile `thesis.log` for warnings and prints out the warnings on the command-line, certain keywords are printed in red for easier visibility
+- `spellcheck`: uses the command-line tool *Gnu Aspell* (`aspell`) to spellcheck all `.tex` files in the subdirectories defined in `TEXDIRS` (this variable is defined in this Makefile); just make sure you keep `TEXDIRS` up to date when you add more subdirectories with `.tex` files, and it will find them; language is set to English (GB), if you need to adjust this, find the option in the file `./common.mk`
+- `texcount`: uses the command-line tool *TeXcount* (`texcount`) as well as *ps2ascii* (`ps2ascii`) followed by a simple `wc -w` to determine the word count in your document. Note: both are not very accurate, but the latter is probably a better guess. 
+- `search`: searches for a user defined pattern in all `.tex` files in all subdirectories defined in `TEXDIRS` (this variable is defined in this Makefile); usage: `make search SEARCH=<pattern>`
+- `clean`: removes all output files from the main directory (except for .pdf files)
+- `allclean`: first executes `clean`, then: removes all output files (also .pdf files) from all subdirectories defined in `IMAGEDIRS` (this variable is defined in this Makefile);
+
+## File Structure
 See a list and short description of directories and files in this repository to understand how the files are organised and where to find what.
 
 + `Makefile` (main Makefile which targets are explained below)
@@ -102,28 +125,6 @@ See a list and short description of directories and files in this repository to 
     + `Makefile`
     + `appendix.tex`
 
-## How to use it
-1. Use a Linux/Mac OS X system (Windows works, but the Makefiles/bash script won't work there)
-2. Download the repository from GitHub
-3. Make sure you have a LaTeX distribution installed on your system, e.g. TeXLive
-4. In the main directory, execute `make fullthesis` on the command-line (for Linux/Mac OS X users, Windows users are required to compile the files manually, sorry).
-5. Open `thesis.pdf` with a PDF reader of your choice, e.g. `evince`.
-6. Now go in and edit and add files, start with `./preamble/myinformation.tex` and `./thesis.tex`.
-
-## The `Makefile`
-As mentioned above, one of the main features of this template is the comprehensive use of recursive Makefiles. Please see a list of targets and their description below:
-- `ref`: executes the target `references` in `./references/Makefile`, which in turn executes the bash script `./references/create_bib_list.sh` which collects the names of all `.bib` files in `./references/` and includes them in a newly created file `./references/references.tex`. This can be included in your main LaTeX file (here: `thesis.tex`); example: imagine you have *A.bib*, *B.bib*, *C.bib* in the directory `./references/`, `make ref` creates `./references/references.tex` which has the following LaTeX command in it: `\bibliography{references/A,references/B,references/C}`
-- `run`: runs LaTeX (by default: `pdflatex`) on `thesis.tex`; all required files, such as image files are required to be in place or this operation will fail
-- `bib`: first executes `ref`, then: if `thesis.aux` does not exist, it executes `run`, followed by BibTeX (`bibtex`) on `thesis.tex`
-- `thesis`: first it executes `run` and `bib` in that order; then the logfile `thesis.log` is scanned for references of missing/changed citations, multiple/changed labels, and rerun suggestions, and executes `run` at each check of the logfile; finally it prints out the warnings LaTeX provides in its logfile by executing `make warnings` (see below)
-- `imagedirs`: executes the target `all` in each subdirectory defined in `IMAGEDIRS` (this variable is defined in this Makefile); this is useful if some images are done with Ti*k*Z, thus you can create standalone pdf files (which are vector graphics) of your Ti*k*Z graphics that you then include in your main LaTeX document. This target `imagedirs` allows you to compile all of these graphics to be compiled on the fly
-- `fullthesis`: executes `allclean`, `imagedirs`, `ref`, `thesis` in that order; basically it removes all previous output files (in this and subdirectories) and builds your thesis from scratch (including graphics, e.g. Ti*k*Z graphics as explained above)
-- `warnings`: scans the LaTeX logfile `thesis.log` for warnings and prints out the warnings on the command-line, certain keywords are printed in red for easier visibility
-- `spellcheck`: uses the command-line tool *Gnu Aspell* (`aspell`) to spellcheck all `.tex` files in the subdirectories defined in `TEXDIRS` (this variable is defined in this Makefile); just make sure you keep `TEXDIRS` up to date when you add more subdirectories with `.tex` files, and it will find them; language is set to English (GB), if you need to adjust this, find the option in the file `./common.mk`
-- `texcount`: uses the command-line tool *TeXcount* (`texcount`) as well as *ps2ascii* (`ps2ascii`) followed by a simple `wc -w` to determine the word count in your document. Note: both are not very accurate, but the latter is probably a better guess. 
-- `search`: searches for a user defined pattern in all `.tex` files in all subdirectories defined in `TEXDIRS` (this variable is defined in this Makefile); usage: `make search SEARCH=<pattern>`
-- `clean`: removes all output files from the main directory (except for .pdf files)
-- `allclean`: first executes `clean`, then: removes all output files (also .pdf files) from all subdirectories defined in `IMAGEDIRS` (this variable is defined in this Makefile);
 
 ## Questions
 Feel free to ask if you have questions. Other than that, good luck!

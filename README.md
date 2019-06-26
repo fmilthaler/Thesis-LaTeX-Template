@@ -1,6 +1,5 @@
 # Thesis-LaTeX-Template
 
-This template aims at students of any degree (Bachelor, Master, PhD) who start writing up their thesis in LaTeX, especially useful for students at Imperial College London, as some of the page layout is set according to the requirements (please double check), but generic enough to be useful at any University. Knowledge of how to use LaTeX (and ideally Unix/Linux) is a prerequisite.
 <p align="left">
   <a href="https://github.com/fmilthaler/Thesis-LaTeX-Template/releases/latest">
     <img src="https://img.shields.io/badge/version-0.1-brightgreen.svg?style=popout" alt="version">
@@ -9,6 +8,15 @@ This template aims at students of any degree (Bachelor, Master, PhD) who start w
     <img src="https://img.shields.io/github/license/fmilthaler/Thesis-LaTeX-Template.svg?style=popout" alt="license">
   </a>
 </p>
+
+This template aims at students of any degree (Bachelor, Master, PhD) who start writing up their thesis in LaTeX.
+
+The overall layout is pleasant, stylish yet classic and fulfills the layout regulations
+at Imperial College London. It is quite generic, thus it is useful for dissertations
+at any University with minor adjustments to the layout to conform with your University's
+layout regulations.
+
+Knowledge of how to use LaTeX (and ideally Makefiles) is a prerequisite.
 
 ## Features
 - Supports PDFLaTeX, LuaLaTeX

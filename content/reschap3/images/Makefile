@@ -1,7 +1,6 @@
 include ../../../common.mk
 
-TEXFILES=
-# add more files if needed
+TEXFILES=$(wildcard *.tex)
 
 .PHONY: all
 .PHONY: clean
@@ -12,8 +11,8 @@ all: texfiles
 texfiles: $(TEXFILES)
 $(TEXFILES):
 	@echo "running ${@}.tex"
-	${LATEX} ${LATEXOPT} ${@}.tex
-	if fgrep ${LATEXLABELCHG} ${@}.log; then make $@; fi
+	${LATEX} ${LATEXOPT} ${@}
+	if fgrep ${LATEXLABELCHG} ${@:.tex=.log}; then make $@; fi
 
 clean:
 	-rm *.aux *.log *.pdf

@@ -82,37 +82,37 @@ See a list and short description of directories and files in this repository to 
 
 + `Makefile` (main Makefile which targets are explained below)
 + `common.mk` (some variable definitions that are used in Makefiles)
-+ `thesis.tex` (main `.tex` file that you run through `pdflatex`/`lualatex`)
-+ `preamble/`
++ `thesis.tex` (main `.tex` file of your document that you run through `pdflatex`/`lualatex`, this file consists mainly of `\input{<filename>}` commands to include the content of your thesis).
++ `preamble/` (files that set up the layout of your thesis and include LaTeX packages are in here)
   + `preamble.tex` (contains documentclass, usepackage commands and defines page layout)
-  + `fancyheaders.tex` (defines custom header/footer styles using "fancyhdr")
+  + `fancyheaders.tex` (defines custom header/footer styles using `fancyhdr`)
   + `loadlistings.tex` (some definitions for printing code)
   + `myinformation.tex` (commands for your name, title, university, etc)
   + `mycommands.tex` (defining custom commands, e.g. mathematical notation)
-+ `titlepage/`
++ `titlepage/` (files for your titlepage)
   + `Makefile`
   + `logo_placeholder.png` (placeholder logo)
-  + `titlepage_wo_logo.tex` (title page without a logo, this is the default)
-  + `titlepage.tex` (title page with a logo)
+  + `titlepage_wo_logo.tex` (titlepage without a logo, this is the default)
+  + `titlepage.tex` (titlepage with a logo)
 + `declaration/`
   + `Makefile`
-  + `copyright.tex`
-  + `declaration.tex`
+  + `copyright.tex` (copyright declaration)
+  + `declaration.tex` (declaration of your work)
 + `abstract/`
   + `Makefile`
-  + `abstract.tex`
-  + `acknowledgements.tex`
-  + `quote.tex`
-+ `references/`
+  + `abstract.tex` (abstract of your thesis)
+  + `acknowledgements.tex` (thanking your supervisors, parents, etc)
+  + `quote.tex` (optional: include a quote of your choice)
++ `references/` (.bib files go in here with all the articles/books you like to reference)
   + `Makefile`
   + `books.bib`
   + `Theses.bib`
   + `futuristic_and_mystical.bib`
   + `create_bib_list.sh` (bash script: automatically generates a `.tex` file that includes all present `.bib` files, just put all your `.bib` files in this directory, rest is done automatically)
-+ `content/`
-  + `intro/`
++ `content/` (this is the main part of your thesis, chapters and supporting data files/plots should go in subdirectories of this one)
+  + `introduction/`
     + `Makefile`
-    + `intro.tex` (your introduction)
+    + `introduction.tex` (your introduction)
   + `reschap1/` (1st main/result chapter)
     + `Makefile`
     + `main.tex` (text for this chapter)
@@ -126,22 +126,22 @@ See a list and short description of directories and files in this repository to 
       + `example_code.py` (python code that is printed as it is)
   + `reschap2/` (2nd main/result chapter)
     + `Makefile`
-    + `main.tex`
+    + `main.tex` (text for this chapter)
     + `images/` (subdirectory for plots/images/pictures etc.)
     + `table-data/` (subdirectory for `.csv` files that are used for tables)
-      + `scientists.csv`
+      + `scientists.csv` (example data file)
   + `reschap3/` (3rd main/result chapter)
     + `Makefile`
-    + `main.tex`
+    + `main.tex` (text for this chapter)
     + `images/` (subdirectory for plots/images/pictures etc.)
     + `table-data/` (subdirectory for `.csv` files that are used for tables)
-      + `pgfplotstable.example1.dat`
-  + `conclusion/`
+      + `pgfplotstable.example1.dat` (example data file)
+  + `conclusion/` (files for the summary, conclusion, future work should go in here)
     + `Makefile`
     + `summary.tex`
     + `conclusion.tex`
     + `future_work.tex`
-  + `appendix/`
+  + `appendix/` (if you need one, the appendix is set up in here)
     + `Makefile`
     + `appendix.tex`
 

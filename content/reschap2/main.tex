@@ -1,7 +1,7 @@
 \section{Mathematical Model}
 Something smart, see \cite{EmmitBrown1947}. Also, see Table \ref{tab:scientists} on page \pageref{tab:scientists}.
 
-\Blindtext
+Also have a look at Figures \ref{fig:test_combinations}, \ref{fig:some_results_plot}, and \ref{fig:3dgraphic}. These are good examples for TikZ graphics/pgfplots.
 
 \begin{table}[p]
   \centering
@@ -29,6 +29,19 @@ Something smart, see \cite{EmmitBrown1947}. Also, see Table \ref{tab:scientists}
  \caption{Fancy TikZ plot}
  \label{fig:test_combinations}
 \end{figure}
+
+\begin{figure}[p!]
+ \centering
+ \captionsetup[sub]{skip=0ex}
+ % and plots:
+ \subcaptionbox{Plot $A$}{\fbox{\includegraphics[width=0.45\textwidth]{content/reschap2/images/velocity-x_interp_0-01}}}
+ \hfill
+ \subcaptionbox{Plot $B$}{\fbox{\includegraphics[width=0.45\textwidth]{content/reschap2/images/velocity-x_interp_0-001}}}
+%
+ \caption[Figure caption to appear in \textsl{List of Figures}]{Figure caption to appear below the figure.}
+ \label{fig:some_results_plot}
+\end{figure}
+
 \begin{figure}[p]
  \centering
  \includegraphics[scale=0.75]{content/reschap2/images/domain_3d_flow_past_sphere}

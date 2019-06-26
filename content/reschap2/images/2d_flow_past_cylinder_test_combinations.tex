@@ -1,0 +1,172 @@
+\documentclass[11pt]{article}
+
+% Set page legths
+\special{papersize=50cm,50cm}
+\hoffset-0.8in
+\voffset-0.8in
+\setlength{\paperwidth}{50cm}
+\setlength{\paperheight}{50cm}
+\setlength{\textwidth}{45cm}
+\setlength{\textheight}{45cm}
+\topskip0cm
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\topmargin}{0cm}
+\setlength{\oddsidemargin}{0cm}
+% set the pagestyle to empty (removing pagenumber etc)
+\pagestyle{empty}
+
+% load packages:
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsfonts}
+\usepackage{units}
+
+\usepackage{ifthen}
+
+% tikz etc:
+\usepackage{tikz}
+\usepackage{pgfplots}
+%\usepgfplotslibrary{external}
+%\tikzexternalize
+% Use newest spacing options (from v. 1.3 on)
+\pgfplotsset{compat=newest}
+\pgfplotsset{width=10cm}
+\pgfplotsset{height=6cm}
+
+\usepackage[active, tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{0pt}
+
+\usetikzlibrary{shapes.geometric, arrows, intersections, through, decorations.text, decorations.shapes, positioning, backgrounds}
+\usetikzlibrary{fit}
+
+\newcommand{\dt}{\Delta t}
+
+\begin{document}
+  \centering
+
+    % defining distances:
+    \def\layersep{5cm}
+    % defining colors:
+    \def\dtcolor{blue!35}
+    \def\projmcolor{red!35}
+    \def\elcolor{green!35}
+
+    \begin{tikzpicture}[scale=1,
+      background/.style={rectangle, fill opacity=0.65, rounded corners=5pt},
+      connection/.style={->,>=stealth',shorten >=1pt, looseness=1.2}
+      ]
+
+      % some styles:
+      \tikzstyle{every pin edge}=[<-,shorten <=1pt]
+      \tikzstyle{annot} = [text width=7em, text centered]
+      \tikzstyle{item} = [rectangle, inner sep=3pt, outer sep=0pt, text centered]
+
+      % Draw the timestep nodes
+      \foreach \name / \y in {{$\dt=5\cdot10^{-3}$}/1} % for only one dt
+      % This is the same as writing \foreach \name / \y in {1/1,2/2,3/3,4/4}
+          \node[draw, item] (dt-\y) at (0,-\y-1) {\name};  % for only one dt
+          % Draw the nodes for the different projection methods used:
+          \foreach \name / \y in {{$\text{V}_{\text{P1-P1}}$}/1,%
+                                  {$\text{V}_{\text{P1}_{\text{DG}}\text{-P2}}$}/2,%
+                                  {$\text{Gr}_{\text{P1-P1}}$}/3,%
+                                  {$\text{Gl}_{\text{b,P1-P1}}$}/4,%
+                                  {$\text{Gl}_{\text{b,P1}_{\text{DG}}\text{-P2}}$}/5,%
+                                  {$\text{Gl}_{\text{br,P1-P1}}$}/6,%
+                                  {$\text{Gl}_{\text{nb,P1-P1}}$}/7}
+              \path[yshift=2cm]
+              node[draw, item, minimum width=2cm,] (H-\y) at (\layersep,-\y cm) {\name};
+
+       % Draw the element edge length sequence:
+       \foreach \name / \y in {1,...,9}
+           \path[yshift=3.5cm]
+           node[draw, item, minimum width=1cm] (el-\y) at (2*\layersep,-0.5cm - \y cm) {\scriptsize $h=\name\cdot 10^{-4}$};
+       % Draw the element edge length sequence:
+       \foreach \name / \y in {1,...,10}
+           \path[yshift=3.5cm] 
+           node[draw, item, minimum width=1cm] (el-\y-2) at (2.15*\layersep,-\y cm) {\scriptsize $h=\name\cdot 10^{-3}$};
+
+       % Connect every node in the timestep layer with every node in the projection layer:
+       \foreach \source in {1}
+           \ifthenelse{\equal{\source}{1}}
+           {\def\pstyle{blue}}
+           {\ifthenelse{\equal{\source}{2}}
+             {\def\pstyle{red}}
+             {\def\pstyle{green!75!black}}
+           }
+           \def\inangle{-10+5*\source+180}
+           \def\inangle{180} % for only one dt
+           \foreach \dest in {1,...,7}
+             \def\outangle{8-2*\dest}
+             \path[connection] (dt-\source) edge[\pstyle,out=0,in=\inangle] (H-\dest);
+
+       % Connect every node in the projection layer with every node in the element edge length layer:
+       \foreach \source in {1,...,7}
+           \ifthenelse{\equal{\source}{1}}
+           {\def\pstyle{blue}}
+           {\ifthenelse{\equal{\source}{2}}
+             {\def\pstyle{red}}
+             {\ifthenelse{\equal{\source}{3}}
+               {\def\pstyle{green!75!black}}
+               {\ifthenelse{\equal{\source}{4}}
+                 {\def\pstyle{magenta}}
+                 {\ifthenelse{\equal{\source}{5}}
+                   {\def\pstyle{gray}}
+                   {\ifthenelse{\equal{\source}{6}}
+                     {\def\pstyle{brown!75!black}}
+                     {\def\pstyle{black}}
+                   }
+                 }
+               }
+             }
+           }
+           \def\inangle{-8+2*\source+180}
+           \foreach \dest in {1,...,9}
+             \def\outangle{10-2*\dest}
+             \path[connection] (H-\source) edge[solid,color=\pstyle,bend angle=5,out=0,in=\inangle] (el-\dest);
+       % and the same for the coarse mesh simulations:
+       \foreach \source in {1,...,7}
+           \ifthenelse{\equal{\source}{1}}
+           {\def\pstyle{blue}}
+           {\ifthenelse{\equal{\source}{2}}
+             {\def\pstyle{red}}
+             {\ifthenelse{\equal{\source}{3}}
+               {\def\pstyle{green!75!black}}
+               {\ifthenelse{\equal{\source}{4}}
+                 {\def\pstyle{magenta}}
+                 {\ifthenelse{\equal{\source}{5}}
+                   {\def\pstyle{gray}}
+                   {\ifthenelse{\equal{\source}{6}}
+                     {\def\pstyle{brown!75!black}}
+                     {\def\pstyle{black}}
+                   }
+                 }
+               }
+             }
+           }
+           \def\inangle{-8+2*\source+180}
+           \foreach \dest in {1,...,10}
+               \def\outangle{11-2*\dest}
+               \path[connection] (H-\source) edge[dashed,\pstyle,out=0,in=\inangle] (el-\dest-2);
+
+    % Annotate the layers
+    \node[annot,above of=H-1, node distance=2.5cm] (lb-projm) {Projection method};
+    \node[annot,left of=lb-projm, node distance=\layersep] (lb-dt) {Timestep};
+    \node[annot,right of=lb-projm, node distance=1.075*\layersep] (lb-el) {Element edge length};
+
+
+    % draw the surrounding boxes as the underlying layer of what was drawn beforehand:
+    \begin{pgfonlayer}{background}
+      % fit boxes around different groups:
+      \node[left of=el-10-2, node distance=2.15*\layersep] (bottomdt) {};
+      \node[right of=bottomdt, node distance=\layersep] (bottomprojm) {};
+      % fitting boxes around nodes:
+      \node[background, fit=(lb-dt)(bottomdt), fill=\dtcolor] (dt-fill-box) {};
+      \node[background, fit=(lb-projm)(bottomprojm), fill=\projmcolor] (proj-fill-box) {};
+      \node[background, fit=(lb-el)(el-10-2), fill=\elcolor] (el-fill-box) {};
+    \end{pgfonlayer}
+
+    \end{tikzpicture}
+\end{document}

@@ -47,7 +47,7 @@ See a list and short description of directories and files in this repository to 
   + `Makefile`
   + `books.bib`
   + `Theses.bib`
-  + `futuristic-and-mystical.bib`
+  + `futuristic_and_mystical.bib`
   + `create_bib_list.sh` (bash script: automatically generates a `.tex` file that includes all present `.bib` files, just put all your `.bib` files in this directory, rest is done automatically)
 + `content/`
   + `intro/`

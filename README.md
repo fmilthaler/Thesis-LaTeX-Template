@@ -133,9 +133,9 @@ See a list and short description of directories and files in this repository to 
     + `main.tex` (text for this chapter)
     + `images/` (subdirectory that contains files for images/figures)
       + `Makefile`
-      + `fem_basis_function_linear_cg.tex`
-      + `fem_basis_function_constant_dg.tex`
-      + `rotation_example.tex`
+      + `fem_basis_function_linear_cg.tex` (example of a (standalone) simple Ti*k*Z graphic)
+      + `fem_basis_function_constant_dg.tex` (example of a (standalone) simple Ti*k*Z graphic)
+      + `rotation_example.tex` (example of a (standalone) fancy Ti*k*Z graphic)
     + `table-data/` (subdirectory for `.csv` files that are used for tables)
       + `scientists.csv` (example data file)
     + `python/`
@@ -145,37 +145,37 @@ See a list and short description of directories and files in this repository to 
     + `main.tex` (text for this chapter)
     + `images/` (subdirectory for plots/images/pictures etc.)
       + `Makefile`
-      + `2d_flow_past_cylinder_test_combinations.tex`
-      + `domain_3d_flow_past_sphere.tex`
-      + `velocity-x_interp_0-01.tex`
-      + `velocity-x_interp_0-001.tex`
+      + `2d_flow_past_cylinder_test_combinations.tex` (example of a (standalone) fancy Ti*k*Z graphic)
+      + `domain_3d_flow_past_sphere.tex` (example of a (standalone) fancy Ti*k*Z graphic)
+      + `velocity-x_interp_0-01.tex` (example of a (standalone) PGFPlots plot)
+      + `velocity-x_interp_0-001.tex` (example of a (standalone) PGFPlots plot)
       + `data/` (subdirectory for data files for PGFPlots)
-        + `bounded_interp_0-01.csv`
-        + `bounded_x_0-1_interp_0-0001.csv`
-        + `boundeddg_interp_0-01.csv`
-        + `boundeddg_x_0-1_interp_0-0001.csv`
-        + `void_interp_0-01.csv`
-        + `voiddg_interp_0-01.csv`
+        + `bounded_interp_0-01.csv` (example data file)
+        + `bounded_x_0-1_interp_0-0001.csv` (example data file)
+        + `boundeddg_interp_0-01.csv` (example data file)
+        + `boundeddg_x_0-1_interp_0-0001.csv` (example data file)
+        + `void_interp_0-01.csv` (example data file)
+        + `voiddg_interp_0-01.csv` (example data file)
     + `table-data/` (subdirectory for `.csv` files that are used for tables)
       + `scientists.csv` (example data file)
   + `reschap3/` (3rd main/result chapter)
     + `Makefile`
     + `main.tex` (text for this chapter)
-    + `parallel_efficiency_table.tex`
+    + `parallel_efficiency_table.tex` (`.tex` file that includes a PGFPlotsTable, file is called by `main.tex`)
     + `images/` (subdirectory for plots/images/pictures etc.)
       + `Makefile`
-      + `pgfplot_texfile_parallel_efficiency.tex`
+      + `pgfplot_texfile_parallel_efficiency.tex` (example of a (standalone) PGFPlots plot)
     + `table-data/` (subdirectory for `.csv` files that are used for tables)
-      + `parallel_efficiency_data.pgfdat`
-      + `pgftablesettings_parallel_efficiency_table.tex`
+      + `parallel_efficiency_data.pgfdat` (example data file)
+      + `pgftablesettings_parallel_efficiency_table.tex` (example file for PGFPlotsTable settings)
   + `conclusion/` (files for the summary, conclusion, future work should go in here)
     + `Makefile`
-    + `summary.tex`
-    + `conclusion.tex`
-    + `future_work.tex`
+    + `summary.tex` (text for your summary)
+    + `conclusion.tex` (text for your conclusion)
+    + `future_work.tex` (text for future work)
   + `appendix/` (if you need one, the appendix is set up in here)
     + `Makefile`
-    + `appendix.tex`
+    + `appendix.tex` (text for your appendix)
 
 -------------------------------------------------------------------------
 

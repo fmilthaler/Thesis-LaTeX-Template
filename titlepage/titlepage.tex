@@ -11,19 +11,34 @@
 
 \begin{Large}\textbf{\name}\end{Large} \\
 [3ex]\begin{large}Submitted for the degree of \degree\end{large}
+\ifthenelse{\equal{\diploma}{}}%
+           {}
+           {\\[1ex]\begin{large}and the \diploma\end{large}}
 
 \vfill
 
-\begin{figure}[h!]
- \centering
- \includegraphics[scale=0.4]{titlepage/logo_placeholder}
-\end{figure}
+\ifthenelse{\equal{\universitylogo}{}}%
+           {}
+           {%
+             \begin{figure}[h!]
+               \centering
+               \includegraphics[scale=0.4]{\universitylogo}
+             \end{figure}%
+           }
 
 \vfill
-\begin{Large}\researchgroup\end{Large} \\
-[2ex]\begin{Large}\department\end{Large} \\
-[2ex]{\LARGE\university}\\
-[5ex]{Month and Year}
+
+\ifthenelse{\equal{\researchgroup}{}}%
+           {}
+           {\begin{Large}\researchgroup\end{Large}\\[2ex]}%
+\ifthenelse{\equal{\department}{}}%
+           {}
+           {\begin{Large}\department\end{Large}\\[2ex]}%
+%
+{\LARGE\university}\\[10ex]
+
+{Month Year}
+
 \end{center}
 
 \end{titlepage}

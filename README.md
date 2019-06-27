@@ -32,20 +32,21 @@ optional.
 
 ## Features
 - Supports PDFLaTeX, LuaLaTeX
-- Customised Page layouts, Header and Footer styles
+- **Customised Page layouts**, Header and Footer styles
 - A Nomenclature with subgroups
-- Examples for fancy figures (using Ti*k*Z) and Tables (using pgfplotstable), as well as support for very large tables that need to be rotated to fit on a page.
+- **Examples** of **fancy figures** (using Ti*k*Z/PGFPlots) and **tables** (using PGFPlotsTable), as well as support for very large tables that need to be rotated to fit on a page.
 - File structure to separate files of different chapters
 - A Bash script automatically includes all your `.bib` files in one file `references/references.tex`, that way you can organise and split your references across several `.bib` files without keeping track of them (without manually updating `\bibliography{...}` in your `.tex` file)
 - Besides having a good file structure, this template provides recursive use of Makefiles. The **Makefiles ensure a minimum number of compilations to resolve all changes** in references/citations, thus the Makefiles offer **similar benefits of the tool `latexmk` and they even go beyond**. **This template stands out from others due to the customised Makefiles**. They allow for (please find a more detailled description of the Makefile's targets and how to use it further below):
   - creating your thesis as a pdf,
-  - automatically detecting changes in references and automatically running LaTeX on your document again (only if required), until all references (in bibliography or to floating objects) are resolved.
-  - automatically detecting changes in your nomenclature (if present) and **building/updating the nomenclature if and only if changes were found**, in order to ensure **minimal compilation time**.
-  - creating separate image files (e.g. with Ti*k*Z/PGFPlots) stored in subdirectories,
-  - print out warnings from LaTeX output files,
-  - spellcheck your `.tex` files,
-  - search a pattern in all your `.tex` files (in all subdirectories) to quickly find a certain pattern,
-  - perform a word count on your document,
+  - **automatically detecting changes in references** and **automatically re-running** LaTeX on your document again (only if required), until all references (in bibliography or to floating objects) are resolved.
+  - automatically detecting changes in the nomenclature (if present) and **building/updating the nomenclature if and only if changes were found**, in order to **ensure minimal compilation time**.
+  - creating separate image files (e.g. with Ti*k*Z/PGFPlots) stored in subdirectories (in order to **separate compilation of document from result plots** done in PGFPlots; depending on the complexity of your result plots, this has the potential to **drastically reduce the compilation time** of your document/thesis),
+  - the structure of directories/Makefiles allows you to simply create more Ti*k*Z/PGFPlots graphics by placing their corresponding standalone LaTeX source files in the `images` subdirectories of the *chapter* directories, the `Makefile` hierachy in place automatically finds and compiles those for you,
+  - print out **warnings from LaTeX** output files,
+  - **spellcheck** your `.tex` files,
+  - **search a pattern** in all your `.tex` files (in all subdirectories) to quickly find a certain pattern,
+  - perform a **word count** on your document,
   - clean your directory (and subdirectories) from output files
 
 -------------------------------------------------------------------------
@@ -63,13 +64,21 @@ optional.
 -------------------------------------------------------------------------
 
 ### The Makefile
-As mentioned above, one of the main features of this template is the comprehensive use of recursive Makefiles. Please see a list of targets of the main Makefile (`./Makefile`) and their description below. Each target is executed on the command-line with `make <target-name>`.
+As mentioned above, one of the main features of this template is the comprehensive use of recursive Makefiles.
+
+Each target is executed on the command-line with `make <target-name>`.
+
+The most frequently used - and the once you should definitely know about - targets are:
+- `thesis`: this target compiles your main document `thesis.tex`, it also runs through BibTeX to sort out your bibliography. Moreover, it automatically detects changes in references/labels/citations and recompiles your target if required in order to resolve those changes. It does expect all images included in the document to be present (see target `imagedirs` below)
+- `fullthesis`: in case of you separating the compilation of some plots/graphics from your main document (in order to save compilation time), those Ti*k*Z graphics/PGFPlots need to be compiled (*before* you run `make thesis` and obviously every time you make changes to those graphics/plots. `fullthesis` invokes another target called `imagedirs` that takes care of thos graphics/plots. It compiles all standalone `texfiles` resulting in `.pdf` files in subdirectories `images`. Those `pdf` files can then be included in the main document. After that step, `fullthesis` invokes `thesis` to compile the main document.
+
+For those who want to know more, and might want to make some changes to the `Makefile`, here is a more detailled and technical description of all targets:
 - `ref`: executes the target `references` in `./references/Makefile`, which in turn executes the bash script `./references/create_bib_list.sh` which collects the names of all `.bib` files in `./references/` and includes them in a newly created file `./references/references.tex`. This can be included in your main LaTeX file (here: `thesis.tex`); example: imagine you have *A.bib*, *B.bib*, *C.bib* in the directory `./references/`, `make ref` creates `./references/references.tex` which has the following LaTeX command in it: `\bibliography{references/A,references/B,references/C}`. **Note:** Do not manually edit `references/references.tex` as it is automatically overwritten by the script every time you compile your thesis.
 - `run`: runs LaTeX (by default: `pdflatex`) on `thesis.tex`; all required files, such as image files are required/expected to be in place, otherwise this operation will fail.
 - `bib`: first executes `ref`, then: if `thesis.aux` does not exist, it executes `run`, followed by BibTeX (`bibtex thesis`)
 - `index`: executes `makeindex ${THESIS}.nlo -s nomencl.ist -o ${THESIS}.nls`, required for building a nomenclature.
-- `thesis`: first it executes `run`, `bib`, and `nomtest` in that order; then the logfile `thesis.log` is scanned for references of missing/changed citations, multiple/changed labels, and rerun suggestions, and executes `run` at each check of the logfile; finally, after having finished the checks and reruns, it prints out the warnings LaTeX provides in its logfile by executing `make warnings` (see below)
-- `imagedirs`: executes the target `all` in each subdirectory defined in `IMAGEDIRS` (this variable is defined in this Makefile); this is useful if some images are done with Ti*k*Z/PGFPlots, thus you can create standalone pdf files (which are vector graphics) of your Ti*k*Z/PGFPlots graphics that you then include in your main LaTeX document. This target `imagedirs` allows you to compile all of these graphics to be compiled on the fly. **Note:** This step is beneficial if you are using PGFPlots to read in lots of data points from data files to create a beautiful plot of your results. This process can take some time, hence you do not want this to be processed every time you change the text in your thesis. As the standalone `.pdf` graphic is a vector graphic, you do not loose quality.
+- `thesis`: first it executes `run`, `bib` and `nomtest` in that order; then the logfile `thesis.log` is scanned for references of missing/changed citations, multiple/changed labels, and rerun suggestions, and executes `run` at each check of the logfile; finally, after having finished the checks and reruns, it prints out the warnings LaTeX provides in its logfile by executing `make warnings` (see below)
+- `imagedirs`: executes the target `all` in each subdirectory defined in `IMAGEDIRS` (this variable is defined in this Makefile); this is useful if some images are done with Ti*k*Z/PGFPlots, thus you can create standalone `pdf` files (which are vector graphics) of your Ti*k*Z/PGFPlots graphics that you then include in your main LaTeX document. This target `imagedirs` allows you to compile all of these graphics to be compiled on the fly. **Note:** This step is beneficial if you are using PGFPlots to read in lots of data points from data files to create a beautiful plot of your results. This process can take some time, hence you do not want this to be processed every time you change the text in your thesis. As the standalone `.pdf` graphic is a vector graphic, you do not loose quality.
 - `fullthesis`: executes `allclean`, `imagedirs`, `ref`, `thesis` in that order; basically it removes all previous output files (in this and subdirectories) and builds your thesis from scratch (including graphics, e.g. Ti*k*Z/PGFPlots graphics as explained above)
 - `nomtest`: checking if there were changes made on the nomenclature the last time the main document was compiled. If so, it executes `make nomupdate`. **Note**: this target ensures a minimal number of LaTeX compilation neccessary to build/update the nomenclature.
 - `nomupdate`: executes `index` and `run` in that order. Gets triggered when `nomtest` found changes in the nomenclature and makes sure the changes are updated in the document.
@@ -140,7 +149,7 @@ See a list and short description of directories and files in this repository to 
       + `domain_3d_flow_past_sphere.tex`
       + `velocity-x_interp_0-01.tex`
       + `velocity-x_interp_0-001.tex`
-      + `data/` (subdirectory for data files for pgfplots)
+      + `data/` (subdirectory for data files for PGFPlots)
         + `bounded_interp_0-01.csv`
         + `bounded_x_0-1_interp_0-0001.csv`
         + `boundeddg_interp_0-01.csv`

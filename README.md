@@ -126,22 +126,40 @@ See a list and short description of directories and files in this repository to 
       + `Makefile`
       + `fem_basis_function_linear_cg.tex`
       + `fem_basis_function_constant_dg.tex`
-      + `1way_coupling_prescribed_rotation.tex`
+      + `rotation_example.tex`
     + `table-data/` (subdirectory for `.csv` files that are used for tables)
+      + `scientists.csv` (example data file)
     + `python/`
       + `example_code.py` (python code that is printed as it is)
   + `reschap2/` (2nd main/result chapter)
     + `Makefile`
     + `main.tex` (text for this chapter)
     + `images/` (subdirectory for plots/images/pictures etc.)
+      + `Makefile`
+      + `2d_flow_past_cylinder_test_combinations.tex`
+      + `domain_3d_flow_past_sphere.tex`
+      + `velocity-x_interp_0-01.tex`
+      + `velocity-x_interp_0-001.tex`
+      + `data/` (subdirectory for data files for pgfplots)
+        + `bounded_interp_0-01.csv`
+        + `bounded_x_0-1_interp_0-0001.csv`
+        + `boundeddg_interp_0-01.csv`
+        + `boundeddg_x_0-1_interp_0-0001.csv`
+        + `void_interp_0-01.csv`
+        + `voiddg_interp_0-01.csv`
     + `table-data/` (subdirectory for `.csv` files that are used for tables)
       + `scientists.csv` (example data file)
   + `reschap3/` (3rd main/result chapter)
     + `Makefile`
     + `main.tex` (text for this chapter)
+    + `parallel_efficiency_table.tex`
     + `images/` (subdirectory for plots/images/pictures etc.)
+      + `Makefile`
+      + `pgfplot_texfile_parallel_efficiency.tex`
     + `table-data/` (subdirectory for `.csv` files that are used for tables)
       + `pgfplotstable.example1.dat` (example data file)
+      + `parallel_efficiency_data.pgfdat`
+      + `pgftablesettings_parallel_efficiency_table.tex`
   + `conclusion/` (files for the summary, conclusion, future work should go in here)
     + `Makefile`
     + `summary.tex`

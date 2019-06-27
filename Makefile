@@ -87,13 +87,13 @@ nomupdate:index run
 	@echo "------------------------------------------"
 
 warnings:
-	@if fgrep ${LATEXWARNING} ${THESIS}.log; then echo "+++ The following warnings were found +++"; ${FGREP} ${LATEXWARNING} ${THESIS}.log; else echo "+++ No warnings found +++"; fi
-	@if fgrep ${LATEXOFULL} ${THESIS}.log; then echo "+++ The following OVERFULL boxes were found +++"; ${FGREP} -B 1 ${LATEXOFULL} ${THESIS}.log; else echo "+++ No overfull boxes found +++"; fi
-	@if fgrep ${LATEXUFULL} ${THESIS}.log; then echo "+++ The following UNDERFULL boxes were found +++"; ${FGREP} -B 1 ${LATEXUFULL} ${THESIS}.log; else echo "+++ No underfull boxes found +++"; fi
-	@if fgrep ${LATEXBADNESS} ${THESIS}.log; then echo "+++ The following BADNESS warnings were found +++"; ${FGREP} -B 1 ${LATEXBADNESS} ${THESIS}.log; else echo "+++ No badness warnings found +++"; fi
-	@if fgrep ${LATEXMULTIPLELABEL} ${THESIS}.log; then echo "+++ FIX YOUR LABELS! Exiting +++"; ${GREP} ${LATEXMULTIPLYLABELS} ${THESIS}.log; ${FGREP} ${LATEXMULTIPLELABEL} ${THESIS}.log; fi
-	@if fgrep ${LATEXMISSCITATION} ${THESIS}.log; then echo "+++ STILL MISSING CITATIONS, FIX YOUR BIB-FILES +++"; ${FGREP} ${LATEXMISSCITATION} ${THESIS}.log; fi
-	@if fgrep ${LATEXRERUN} ${THESIS}.log; then echo "+++ Rerun ${LATEX} to get rid of some warnings +++"; fi
+	@if fgrep ${LATEXWARNING} ${THESIS}.log > /dev/null; then echo "+++ The following warnings were found +++"; ${FGREP} ${LATEXWARNING} ${THESIS}.log; else echo "+++ No warnings found +++"; fi
+	@if fgrep ${LATEXOFULL} ${THESIS}.log > /dev/null; then echo "+++ The following OVERFULL boxes were found +++"; ${FGREP} -B 1 ${LATEXOFULL} ${THESIS}.log; else echo "+++ No overfull boxes found +++"; fi
+	@if fgrep ${LATEXUFULL} ${THESIS}.log > /dev/null; then echo "+++ The following UNDERFULL boxes were found +++"; ${FGREP} -B 1 ${LATEXUFULL} ${THESIS}.log; else echo "+++ No underfull boxes found +++"; fi
+	@if fgrep ${LATEXBADNESS} ${THESIS}.log > /dev/null; then echo "+++ The following BADNESS warnings were found +++"; ${FGREP} -B 1 ${LATEXBADNESS} ${THESIS}.log; else echo "+++ No badness warnings found +++"; fi
+	@if fgrep ${LATEXMULTIPLELABEL} ${THESIS}.log > /dev/null; then echo "+++ FIX YOUR LABELS! Exiting +++"; ${GREP} ${LATEXMULTIPLYLABELS} ${THESIS}.log; ${FGREP} ${LATEXMULTIPLELABEL} ${THESIS}.log; fi
+	@if fgrep ${LATEXMISSCITATION} ${THESIS}.log > /dev/null; then echo "+++ STILL MISSING CITATIONS, FIX YOUR BIB-FILES +++"; ${FGREP} ${LATEXMISSCITATION} ${THESIS}.log; fi
+	@if fgrep ${LATEXRERUN} ${THESIS}.log > /dev/null; then echo "+++ Rerun ${LATEX} to get rid of some warnings +++"; fi
 
 spellcheck: texdirs
 	@echo "spell check on ${THESIS}.tex"

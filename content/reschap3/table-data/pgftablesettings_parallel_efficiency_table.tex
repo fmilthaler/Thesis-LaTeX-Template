@@ -49,10 +49,15 @@
             \fi
         },
     },
-    columns/totalwalltime/.style={column name=totalwalltime,
+    columns/totalwalltime/.style={column name=total walltime,
         sci, sci zerofill,
-        precision=3, fixed,
-        dec sep align,
+        precision=5, fixed,
+        dec sep align, fixed zerofill,
+        postproc cell content/.append code={
+            \ifnum1=\pgfplotstablepartno
+              \pgfkeysalso{@cell content/.add={$\unit[}{]{s}$}}%
+            \fi
+        },
     },
     columns/solve_time/.style={column name=$t_{\text{solve}}$,
         sci, sci zerofill,
@@ -69,4 +74,8 @@
         precision=3, fixed,
         dec sep align,
     },
+    create on use/newfraction/.style={create col/expr={\thisrow{solve_time}/\thisrow{totalwalltime}}},
+    columns/newfraction/.style={column name={$\dfrac{t_{\text{solve}}}{\text{total walltime}}$}},
+    create on use/nodes2/.style={create col/expr={\thisrow{num_nodes}*2}},
+    columns/nodes2/.style={column name={$\text{nodes}*2$}},
 }

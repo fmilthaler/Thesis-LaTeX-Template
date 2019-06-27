@@ -166,7 +166,6 @@ See a list and short description of directories and files in this repository to 
       + `Makefile`
       + `pgfplot_texfile_parallel_efficiency.tex`
     + `table-data/` (subdirectory for `.csv` files that are used for tables)
-      + `pgfplotstable.example1.dat` (example data file)
       + `parallel_efficiency_data.pgfdat`
       + `pgftablesettings_parallel_efficiency_table.tex`
   + `conclusion/` (files for the summary, conclusion, future work should go in here)

@@ -6,6 +6,8 @@
 \input{preamble/preamble} % change page layout, latex package setting in here
 % defining some commands:
 \input{preamble/mycommands} % define some custom commands in here
+% add symbols/nomenclature entries
+\input{preamble/nomenclature}
 
 %%%%%%%%%%%%%%%% Additional settings %%%%%%%%%%%%%%%%
 \numberwithin{figure}{chapter}
@@ -73,10 +75,17 @@
 %\myclearpage\mypagestyle{lists}\mylisthead{\listalgorithmname}
 %\listofalgorithms\newpage
 
-\myclearpage\mypagestyle{myfancy}
+%%%%%%%%%%%%%%%%%%%
+% Nomenclature    %
+%%%%%%%%%%%%%%%%%%%
+\myclearpage\mypagestyle{lists}\mylisthead{\nomname}
+\printnomenclature[2cm]
+
+
 %%%%%%%%%%%%%%%%%%%
 % Introduction    %
 %%%%%%%%%%%%%%%%%%%
+\myclearpage\mypagestyle{myfancy}
 \chapter{Introduction}
 % your introduction:
 \input{content/introduction/introduction}

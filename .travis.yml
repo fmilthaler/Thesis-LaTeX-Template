@@ -6,7 +6,6 @@ language: bash
 branches:
   only:
   - master
-  - develop
 
 before_install:
   - curl -L https://github.com/holgern/travis-texlive/releases/download/2017-09-18_02/texlive.tar.xz | tar -JxC ~

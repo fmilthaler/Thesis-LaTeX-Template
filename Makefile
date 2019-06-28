@@ -112,6 +112,10 @@ texcount:
 	@echo "and pdftops ... ps2ascii: "
 	pdftops ${THESIS}.pdf; ps2ascii ${THESIS}.ps | wc -w
 
+search:
+	@echo "searching all texfiles for $(SEARCH):"
+	@find . -name "*.tex" | xargs grep -i --color=auto $(SEARCH)
+
 clean:
 	@-rm *.aux *.log *.blg *.bbl *.lof *.lot *.toc *.out *nls *ilg *.nlo *nlo-old
 
@@ -119,8 +123,3 @@ allclean: clean $(CLEANDIRS)
 $(CLEANDIRS): 
 	@echo "cleaning directory $(@:clean-%=%):"
 	@$(MAKE) -C $(@:clean-%=%) allclean
-
-search:
-	@echo "searching all texfiles for $(SEARCH):"
-	@find . -name "*.tex" | xargs grep -i --color=auto $(SEARCH)
-

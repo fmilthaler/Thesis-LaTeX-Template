@@ -64,16 +64,16 @@
 % rename toc:
 \renewcommand{\contentsname}{Table of Contents}
 \mypagestyle{lists}\mylisthead{Table of Contents}
-\tableofcontents%\newpage
+\tableofcontents
 
 \myclearpage\mypagestyle{lists}\mylisthead{\listfigurename}
-\listoffigures%\newpage
+\listoffigures
 
 \myclearpage\mypagestyle{lists}\mylisthead{\listtablename}
-\listoftables%\newpage
+\listoftables
 
 %\myclearpage\mypagestyle{lists}\mylisthead{\listalgorithmname}
-%\listofalgorithms\newpage
+%\listofalgorithms
 
 %%%%%%%%%%%%%%%%%%%
 % Nomenclature    %
@@ -112,7 +112,7 @@
 %%%%%%%%%%%%%%%%%%%%%
 % Summary           %
 %%%%%%%%%%%%%%%%%%%%%
-\newpage\myclearpage\mypagestyle{myfancy}
+\myclearpage\mypagestyle{myfancy}
 \chapter{Summary}
 \label{chap:summary}
 \input{content/conclusion/summary}
@@ -120,7 +120,7 @@
 %%%%%%%%%%%%%%%%%%%%%
 % Conclusion        %
 %%%%%%%%%%%%%%%%%%%%%
-\newpage\myclearpage\mypagestyle{myfancy}
+\myclearpage\mypagestyle{myfancy}
 \chapter{Conclusion}
 \label{chap:conclusion}
 \input{content/conclusion/conclusion}
@@ -128,7 +128,7 @@
 %%%%%%%%%%%%%%%%%%%%%
 % Future Research   %
 %%%%%%%%%%%%%%%%%%%%%
-\newpage\myclearpage\mypagestyle{myfancy}
+\myclearpage\mypagestyle{myfancy}
 \chapter{Future Work}
 \label{chap:future_work}
 \input{content/conclusion/future_work}

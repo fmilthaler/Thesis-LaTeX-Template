@@ -71,13 +71,14 @@ nomtest:
 	    if test -s $(THESIS).nlo-diff; then \
 	      echo "diff in nomenclature found"; \
 	      make nomupdate; \
-	      rm $(THESIS).nlo-diff; \
 	    fi \
 	  else \
 	    echo "$(THESIS).nlo-old not found (or empty)"; \
 	    make nomupdate; \
 	  fi \
 	fi
+	# removing thesis.nlo-diff if it exists
+	test -f $(THESIS).nlo-diff && rm $(THESIS).nlo-diff
 
 nomupdate:index run
 	@cp -p ${THESIS}.nlo ${THESIS}.nlo-old

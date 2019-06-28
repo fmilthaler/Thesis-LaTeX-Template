@@ -113,7 +113,7 @@ texcount:
 	pdftops ${THESIS}.pdf; ps2ascii ${THESIS}.ps | wc -w
 
 clean:
-	@-rm *.aux *.log *.blg *.bbl *.lof *.lot *.toc *.fff *.out *.ps *nls *ilg *.nlo *nlo-old *~
+	@-rm *.aux *.log *.blg *.bbl *.lof *.lot *.toc *.out *nls *ilg *.nlo *nlo-old
 
 allclean: clean $(CLEANDIRS)
 $(CLEANDIRS): 

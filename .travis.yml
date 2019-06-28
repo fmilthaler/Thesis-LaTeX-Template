@@ -1,0 +1,22 @@
+sudo: required
+os: linux
+dist: xenial
+language: bash
+
+branches:
+  only:
+  - master
+
+before_install:
+  - curl -L https://github.com/holgern/travis-texlive/releases/download/2017-09-18_02/texlive.tar.xz | tar -JxC ~
+
+install:
+  - PATH=$HOME/texlive/bin/x86_64-linux:$PATH
+
+script:
+  - make allclean
+  - make fullthesis
+  - make clean
+  - make thesis
+  - make clean
+  - make

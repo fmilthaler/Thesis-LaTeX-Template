@@ -77,8 +77,10 @@ nomtest:
 	    make nomupdate; \
 	  fi \
 	fi
-	# removing thesis.nlo-diff if it exists
-	test -f $(THESIS).nlo-diff && rm $(THESIS).nlo-diff
+	@# removing $(THESIS).nlo-diff if it exists
+	@if test -f $(THESIS).nlo-diff; then \
+	  rm $(THESIS).nlo-diff; \
+	fi
 
 nomupdate:index run
 	@cp -p ${THESIS}.nlo ${THESIS}.nlo-old
@@ -110,15 +112,14 @@ texcount:
 	@echo "and pdftops ... ps2ascii: "
 	pdftops ${THESIS}.pdf; ps2ascii ${THESIS}.ps | wc -w
 
+search:
+	@echo "searching all texfiles for $(SEARCH):"
+	@find . -name "*.tex" | xargs grep -i --color=auto $(SEARCH)
+
 clean:
-	@-rm *.aux *.log *.blg *.bbl *.lof *.lot *.toc *.fff *.out *.ps *nls *ilg *.nlo *nlo-old *~
+	@-rm *.aux *.log *.blg *.bbl *.lof *.lot *.toc *.out *nls *ilg *.nlo *nlo-old
 
 allclean: clean $(CLEANDIRS)
 $(CLEANDIRS): 
 	@echo "cleaning directory $(@:clean-%=%):"
 	@$(MAKE) -C $(@:clean-%=%) allclean
-
-search:
-	@echo "searching all texfiles for $(SEARCH):"
-	@find . -name "*.tex" | xargs grep -i --color=auto $(SEARCH)
-

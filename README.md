@@ -4,6 +4,9 @@
   <a href="https://github.com/fmilthaler/Thesis-LaTeX-Template/releases/latest">
     <img src="https://img.shields.io/badge/version-0.1-brightgreen.svg?style=popout" alt="version">
   </a>
+  <a href="https://travis-ci.org/fmilthaler/Thesis-LaTeX-Template">
+    <img src="https://travis-ci.org/fmilthaler/Thesis-LaTeX-Template.svg?style=popout?branch=master" alt='travis'>
+  </a>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/github/license/fmilthaler/Thesis-LaTeX-Template.svg?style=popout" alt="license">
   </a>

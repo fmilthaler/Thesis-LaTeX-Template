@@ -37,11 +37,11 @@ optional.
 - **Examples** of **fancy figures** (using Ti*k*Z/PGFPlots) and **tables** (using PGFPlotsTable), as well as support for very large tables that need to be rotated to fit on a page.
 - File structure to separate files of different chapters
 - A Bash script automatically includes all your `.bib` files in one file `references/references.tex`, that way you can organise and split your references across several `.bib` files without keeping track of them (without manually updating `\bibliography{...}` in your `.tex` file)
-- Besides having a good file structure, this template provides recursive use of Makefiles. The **Makefiles ensure a minimum number of compilations to resolve all changes** in references/citations, thus the Makefiles offer **similar benefits of the tool `latexmk` and they even go beyond**. **This template stands out from others due to the customised Makefiles**. They allow for (please find a more detailled description of the Makefile's targets and how to use it further below):
+- Besides having a good file structure, this template provides recursive use of Makefiles. The **Makefiles ensure a minimum number of compilations to resolve all changes** in references/citations, thus the Makefiles offer **similar benefits of the tool `latexmk` and they even go beyond**. **This template stands out from others due to the customised Makefiles**. These automate many processes with several checks in place so that **no time is wasted** on recompiling your document if it is not needed. They allow for (please find a more detailled description of the Makefile's targets and how to use it further below):
   - creating your thesis as a pdf,
   - **automatically detecting changes in references** and **automatically re-running** LaTeX on your document again (only if required), until all references (in bibliography or to floating objects) are resolved.
-  - automatically detecting changes in the nomenclature (if present) and **building/updating the nomenclature if and only if changes were found**, in order to **ensure minimal compilation time**.
-  - creating separate image files (e.g. with Ti*k*Z/PGFPlots) stored in subdirectories (in order to **separate compilation of document from result plots** done in PGFPlots; depending on the complexity of your result plots, this has the potential to **drastically reduce the compilation time** of your document/thesis),
+  - automatically detecting changes in the nomenclature (if present) and **building/updating the nomenclature if and only if changes were found**, in order to **ensure minimal compile time**.
+  - creating separate image files (e.g. with Ti*k*Z/PGFPlots) stored in subdirectories (in order to **separate compilation of document from result plots** done in PGFPlots; depending on the complexity of your result plots, this has the potential to **drastically reduce the compile time** of your document/thesis),
   - the structure of directories/Makefiles allows you to simply create more Ti*k*Z/PGFPlots graphics by placing their corresponding standalone LaTeX source files in the `images` subdirectories of the *chapter* directories, the `Makefile` hierachy in place automatically finds and compiles those for you,
   - print out **warnings from LaTeX** output files,
   - **spellcheck** your `.tex` files,
@@ -69,8 +69,8 @@ As mentioned above, one of the main features of this template is the comprehensi
 Each target is executed on the command-line with `make <target-name>`.
 
 The most frequently used - and the once you should definitely know about - targets are:
-- `thesis`: this target compiles your main document `thesis.tex`, it also runs through BibTeX to sort out your bibliography. Moreover, it automatically detects changes in references/labels/citations and recompiles your target if required in order to resolve those changes. It does expect all images included in the document to be present (see target `imagedirs` below)
-- `fullthesis`: in case of you separating the compilation of some plots/graphics from your main document (in order to save compilation time), those Ti*k*Z graphics/PGFPlots need to be compiled (*before* you run `make thesis` and obviously every time you make changes to those graphics/plots. `fullthesis` invokes another target called `imagedirs` that takes care of thos graphics/plots. It compiles all standalone `texfiles` resulting in `.pdf` files in subdirectories `images`. Those `pdf` files can then be included in the main document. After that step, `fullthesis` invokes `thesis` to compile the main document.
+- `thesis`: this target compiles your main document `thesis.tex`, it also runs through BibTeX to sort out your bibliography. Moreover, it automatically detects changes in references/labels/citations and recompiles your target if required in order to resolve those changes. It does expect all images included in the document to be present (see target `imagedirs` below). Finally, it automatically detects a nomenclature, and if so, it also detects if changes were made to it. If both criteria are satisfied, the document is automatically updated to reflect the changes in the nomenclature.
+- `fullthesis`: in case of you separating the compilation of some plots/graphics from your main document (in order to save compile time), those Ti*k*Z graphics/PGFPlots need to be compiled (*before* you run `make thesis` and obviously every time you make changes to those graphics/plots. `fullthesis` invokes another target called `imagedirs` that takes care of thos graphics/plots. It compiles all standalone `texfiles` resulting in `.pdf` files in subdirectories `images`. Those `pdf` files can then be included in the main document. After that step, `fullthesis` invokes `thesis` to compile the main document.
 
 For those who want to know more, and might want to make some changes to the `Makefile`, here is a more detailled and technical description of all targets:
 - `ref`: executes the target `references` in `./references/Makefile`, which in turn executes the bash script `./references/create_bib_list.sh` which collects the names of all `.bib` files in `./references/` and includes them in a newly created file `./references/references.tex`. This can be included in your main LaTeX file (here: `thesis.tex`); example: imagine you have *A.bib*, *B.bib*, *C.bib* in the directory `./references/`, `make ref` creates `./references/references.tex` which has the following LaTeX command in it: `\bibliography{references/A,references/B,references/C}`. **Note:** Do not manually edit `references/references.tex` as it is automatically overwritten by the script every time you compile your thesis.
@@ -98,7 +98,8 @@ See a list and short description of directories and files in this repository to 
 + `common.mk` (some variable definitions that are used in Makefiles)
 + `thesis.tex` (main `.tex` file of your document that you run through `pdflatex`/`lualatex`, this file consists mainly of `\input{<filename>}` commands to include the content of your thesis).
 + `preamble/` (files that set up the layout of your thesis and include LaTeX packages are in here)
-  + `preamble.tex` (contains documentclass, usepackage commands and defines page layout)
+  + `preamble.tex` (contains documentclass, usepackage commands)
+  + `layout.tex` (defines overall page/text layout, chapter title layout)
   + `fancyheaders.tex` (defines custom header/footer styles using `fancyhdr`)
   + `loadlistings.tex` (some definitions for printing code)
   + `myinformation.tex` (commands for your name, title, university, etc)
@@ -120,10 +121,10 @@ See a list and short description of directories and files in this repository to 
   + `quote.tex` (optional: include a quote of your choice)
 + `references/` (.bib files go in here with all the articles/books you like to reference)
   + `Makefile`
-  + `books.bib`
-  + `Theses.bib`
-  + `futuristic_and_mystical.bib`
   + `create_bib_list.sh` (bash script: automatically generates a `.tex` file that includes all present `.bib` files, just put all your `.bib` files in this directory, rest is done automatically)
+  + `books.bib`
+  + `futuristic_and_mystical.bib`
+  + `Theses.bib`
 + `content/` (this is the main part of your thesis, chapters and supporting data files/plots should go in subdirectories of this one)
   + `introduction/`
     + `Makefile`

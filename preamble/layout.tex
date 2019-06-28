@@ -1,0 +1,30 @@
+% settings for overall layout:
+
+% definition layout and print space
+\setlength{\hoffset}{-1in}
+\setlength{\voffset}{-0.65in}
+\setlength{\oddsidemargin}{3cm} % setting the side margin to 3cm
+\setlength{\evensidemargin}{\oddsidemargin} % side margin to be the same for front/back of pages
+% content is horizontally centered on the page: pagewidth=21cm - 2*3cm (margins) = 15cm of text:
+\setlength{\textwidth}{15cm}
+\setlength{\textheight}{23cm} % 23cm of text height
+% setting separation from header, footer
+\setlength{\headsep}{0.75cm}
+\setlength{\footskip}{30pt}
+\setlength{\headheight}{28pt} % setting header height
+\setlength{\parindent}{0pt} % no indentation on a new paragraph
+\setlength{\parskip}{1.5ex} % vertical space between paragraphs
+\setlength{\floatsep}{\baselineskip} % distance between two floats;
+\setlength{\intextsep}{1.5\baselineskip} % distance between floats inserted inside the page text (using h) and the text proper.
+
+% to set line spacing:
+\usepackage{setspace} % provides commands: \doublespacing, \onehalfspacing, \singlespacing
+
+% Define the layout of chapter titles:
+\usepackage[Bjarne]{fncychap}% options are: Bjarne, Sonny, Lenny, Bjornstrup
+\ChNameAsIs \ChNameVar{\raggedleft\Huge\rm} \ChRuleWidth{0.5pt}
+\ChNumVar{\raggedleft\Huge}
+\ChNameAsIs \ChNameVar{\raggedleft\LARGE\rm} \ChRuleWidth{0.5pt}
+\ChNumVar{\raggedleft\rm\bfseries\LARGE}
+\ChTitleAsIs
+\ChTitleVar{\raggedleft\rm\bfseries\Huge}

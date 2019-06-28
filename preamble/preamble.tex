@@ -9,47 +9,14 @@
     %idxtotoc,	% index to table of contents
 ]{report}
 
-% definition layout and print space
-\setlength{\hoffset}{-1in}
-\setlength{\voffset}{-0.65in}
-\setlength{\oddsidemargin}{3cm} % setting the side margin to 3cm
-\setlength{\evensidemargin}{\oddsidemargin} % side margin to be the same for front/back of pages
-% content is horizontally centered on the page: pagewidth=21cm - 2*3cm (margins) = 15cm of text:
-\setlength{\textwidth}{15cm}
-\setlength{\textheight}{23cm} % 23cm of text height
-% setting separation from header, footer
-\setlength{\headsep}{0.75cm}
-\setlength{\footskip}{30pt}
-\setlength{\headheight}{28pt} % setting header height
-\setlength{\parindent}{0pt} % no indentation on a new paragraph
-\setlength{\parskip}{1.5ex} % vertical space between paragraphs
-\setlength{\floatsep}{\baselineskip} % distance between two floats;
-\setlength{\intextsep}{1.5\baselineskip} % distance between floats inserted inside the page text (using h) and the text proper.
-\usepackage{varwidth}
+% overall layout settings
+\input{preamble/layout}
 
-% Setting header/footer with fancyheaders in separate
+% setting header/footer with fancyheaders in separate file
 \input{preamble/fancyheaders} % find fancyheader settings here
+
+% setting listings (for code/pseudo code)
 \input{preamble/loadlistings} % find listing/code settings here
-
-% Define the layout of chapter titles:
-\usepackage[Bjarne]{fncychap}% options are: Bjarne, Sonny, Lenny, Bjornstrup
-\ChNameAsIs \ChNameVar{\raggedleft\Huge\rm} \ChRuleWidth{0.5pt}
-\ChNumVar{\raggedleft\Huge}
-\ChNameAsIs \ChNameVar{\raggedleft\LARGE\rm} \ChRuleWidth{0.5pt}
-\ChNumVar{\raggedleft\rm\bfseries\LARGE}
-
-% \ChTitleUpperCase
-\ChTitleAsIs
-\ChTitleVar{\raggedleft\rm\bfseries\Huge}
-%\ChNameVar{\raggedleft\Large} \ChNumVar{\raggedleft\Large} \ChTitleVar{\raggedleft\Huge}
-%\ChRuleWidth{0.5pt} \ChNameUpperCase
-%\ChTitleAsIs
-%
-
-\usepackage{calc}
-
-% to set line spacing:
-\usepackage{setspace} % provides commands: \doublespacing, \onehalfspacing, \singlespacing
 
 % Formats
 \usepackage{textcomp}
@@ -128,12 +95,14 @@
 \usepackage{colortbl} % for colors in tables
 
 % PDF packages
-\usepackage[luatex]{hyperref}
-\hypersetup{pdfauthor=\name, pdftitle=\thesistitle}
+\usepackage[pdftex]{hyperref}
+\hypersetup{pdfauthor=\name,
+  pdftitle=\thesistitle,
+  pdfkeywords={Thesis, \degree}}
 \hypersetup{colorlinks=true,
-        linkcolor=black,
-        citecolor=black,
-        urlcolor=black}
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black}
 \usepackage[final]{pdfpages}
 
 % URL

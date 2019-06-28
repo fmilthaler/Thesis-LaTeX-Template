@@ -2,7 +2,7 @@
 
 <p align="left">
   <a href="https://github.com/fmilthaler/Thesis-LaTeX-Template/releases/latest">
-    <img src="https://img.shields.io/badge/version-0.1-brightgreen.svg?style=popout" alt="version">
+    <img src="https://img.shields.io/badge/version-0.2-brightgreen.svg?style=popout" alt="version">
   </a>
   <a href="https://travis-ci.org/fmilthaler/Thesis-LaTeX-Template">
     <img src="https://travis-ci.org/fmilthaler/Thesis-LaTeX-Template.svg?style=popout?branch=master" alt='travis'>

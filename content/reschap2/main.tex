@@ -3,18 +3,20 @@ Something smart, see \cite{EmmitBrown1947}. Also, see Table \ref{tab:scientists}
 
 Also have a look at Figures \ref{fig:test_combinations}, \ref{fig:some_results_plot}, and \ref{fig:3dgraphic}. These are good examples for TikZ graphics/pgfplots.
 
-\begin{table}[p]
+\begin{table}[h]
   \centering
   \pgfplotstabletypeset[
     col sep=comma,
     string type,
+    % Coloring:
+    every even row/.style={before row={\rowcolor[gray]{0.85}}},
     every head row/.style={%
-        before row={\hline
-            \multicolumn{2}{c}{Full Name} & \\
+        before row={\toprule
+            \multicolumn{2}{c}{Full Name} & Age \\ \midrule
         },
-        after row=\hline
+        after row=%
     },
-    every last row/.style={after row=\hline},
+    every last row/.style={after row=\bottomrule},
     columns/name/.style={column name=Name, column type=l},
     columns/surname/.style={column name=Surname, column type=l},
     columns/age/.style={column name=Age, column type=c},
@@ -38,13 +40,13 @@ Also have a look at Figures \ref{fig:test_combinations}, \ref{fig:some_results_p
  \hfill
  \subcaptionbox{Plot $B$}{\fbox{\includegraphics[width=0.45\textwidth]{content/reschap2/images/velocity-x_interp_0-001}}}
 %
- \caption[Figure caption to appear in \textsl{List of Figures}]{Figure caption to appear below the figure.}
+ \caption{PGFPlots reading in data from data files, then plotting it, with magnifying a certain area of the plot.}
  \label{fig:some_results_plot}
 \end{figure}
 
 \begin{figure}[p]
  \centering
- \includegraphics[scale=0.75]{content/reschap2/images/domain_3d_flow_past_sphere}
- \caption{Another fancy TikZ plot in 3d}
+ \includegraphics[width=\textwidth]{content/reschap2/images/domain_3d_flow_past_sphere}
+ \caption{Another fancy 3d TikZ plot 3d}
  \label{fig:3dgraphic}
 \end{figure}

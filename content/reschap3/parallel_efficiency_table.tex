@@ -1,0 +1,15 @@
+% Load this file in your LaTeX document with:
+% \input{content/reschap3/parallel_efficiency_table.tex}
+
+% Load table data:
+\pgfplotstableread{content/reschap3/table-data/parallel_efficiency_data.pgfdat}\pgftablepareff
+
+\begin{table}[p!]
+  \centering
+  % Load table settings:
+  \input{content/reschap3/table-data/pgftablesettings_parallel_efficiency_table.tex}
+  \pgfplotstabletypeset[columns={simid,solve_time,num_nodes_per_core,speed-up,pareff},
+  ]\pgftablepareff
+  \caption[Parallel scalability of some computational experiment.]{Parallel scalability of some computational experiment. See also Figure \ref{fig:parefficiency}}
+  \label{tab:parefficiency}
+\end{table}

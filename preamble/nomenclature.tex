@@ -1,0 +1,45 @@
+% adding a nomenclature
+\usepackage{nomencl}
+\makenomenclature
+% rename Nomenclature:
+%\renewcommand\nomname{Abbreviations}
+
+% defining entries of the nomenclature
+% math symbols
+\nomenclature[aa]{$p$}{Pressure}
+\nomenclature[ab]{$\boldsymbol{u_f}$}{Fluid velocity vector}
+\nomenclature[ab]{$\boldsymbol{u_s}$}{Solid velocity vector}
+\nomenclature[ab]{$\mathbf{u_f}$}{Discrete fluid velocity vector}
+
+% mesh and elements
+\newcommand\MeshF{\mathcal{T}_F}
+\newcommand\MeshS{\mathcal{T}_S}
+\newcommand\NF{\mathcal{N}_F}
+\newcommand\NS{\mathcal{N}_S}
+\newcommand\KF[1][]{\mathcal{K}_{F_{#1}}\xspace}
+\newcommand\KS[1][]{\mathcal{K}_{S_{#1}}\xspace}
+\nomenclature[na]{$\MeshF$}{Fluid mesh}
+\nomenclature[na]{$\MeshS$}{Solid mesh}
+\nomenclature[nb]{$\NF$}{Number of basis functions on the fluid mesh ($\MeshF$)}
+\nomenclature[nb]{$\NS$}{Number of basis functions on the solid mesh ($\MeshS$)}
+\nomenclature[nb]{$\KF$}{Element on the fluid mesh ($\MeshF$)}
+\nomenclature[nb]{$\KS$}{Element on the solid mesh ($\MeshS$)}
+
+% abbreviations
+\newcommand\projgrandy{$\text{Gr}_{\text{\popo}}$\xspace}
+\newcommand\projbnd{$\text{Gl}_{\text{b,\popo}}$\xspace}
+\nomenclature[z]{\projgrandy}{Grandy interpolation}
+\nomenclature[z]{\projbnd}{Bounded Galerkin projection}
+\nomenclature[z]{CFD}{Computational Fluid Dynamics}
+\nomenclature[z]{FEM}{Finite Element Method}
+\nomenclature[z]{FV}{Finite Volume}
+\nomenclature[z]{FSI}{Fluid-Solid Interaction}
+\nomenclature[z]{CPU}{Central Processing Unit}
+
+% defining subgroups of the nomenclature
+\renewcommand{\nomgroup}[1]{%
+  \ifthenelse{\equal{#1}{A}}{\item[\textbf{Variables}]}{%
+  \ifthenelse{\equal{#1}{M}}{\item[\textbf{Math symbols}]}{%
+  \ifthenelse{\equal{#1}{N}}{\item[\textbf{Mesh related symbols}]}{%
+  \ifthenelse{\equal{#1}{Z}}{\item[\textbf{Abbreviations}]}{%
+  \ifthenelse{\equal{#1}{G}}{\item[\textbf{Constants}]}{}}}}}}

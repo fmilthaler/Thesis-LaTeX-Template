@@ -77,8 +77,10 @@ nomtest:
 	    make nomupdate; \
 	  fi \
 	fi
-	# removing thesis.nlo-diff if it exists
-	test -f $(THESIS).nlo-diff && rm $(THESIS).nlo-diff
+	@# removing $(THESIS).nlo-diff if it exists
+	@if test -f $(THESIS).nlo-diff; then \
+	  rm $(THESIS).nlo-diff; \
+	fi
 
 nomupdate:index run
 	@cp -p ${THESIS}.nlo ${THESIS}.nlo-old

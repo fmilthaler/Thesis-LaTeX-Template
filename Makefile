@@ -41,7 +41,8 @@ $(IMAGEDIRS):
 
 fullthesis: allclean imagedirs ref thesis
 
-thesis:run bib
+thesis:run bib nomtest
+	# check for missing/changed citations/labels:
 	@if fgrep ${LATEXMISSCITATION} ${THESIS}.log; then make run; fi
 	@if fgrep ${LATEXCITATIONCHG} ${THESIS}.log; then make run; fi
 	@if fgrep ${LATEXRERUN} ${THESIS}.log; then make run; fi
@@ -58,6 +59,32 @@ bib:ref
 
 ref:
 	@$(MAKE) -C references all
+
+index:
+	makeindex ${THESIS}.nlo -s nomencl.ist -o ${THESIS}.nls
+
+nomtest:
+	@echo "checking if nomenclature is present and if so, if it needs to be update"
+	@-if test -s $(THESIS).nlo; then \
+	  if test -s $(THESIS).nlo-old; then \
+	    diff -u $(THESIS).nlo $(THESIS).nlo-old > $(THESIS).nlo-diff; \
+	    if test -s $(THESIS).nlo-diff; then \
+	      echo "diff in nomenclature found"; \
+	      make nomupdate; \
+	      rm $(THESIS).nlo-diff; \
+	    fi \
+	  else \
+	    echo "$(THESIS).nlo-old not found (or empty)"; \
+	    make nomupdate; \
+	  fi \
+	fi
+
+nomupdate:index run
+	@cp -p ${THESIS}.nlo ${THESIS}.nlo-old
+	@echo "------------------------------------------"
+	@echo "changes in the Nomenclature were found"
+	@echo "Nomenclature was updated"
+	@echo "------------------------------------------"
 
 warnings:
 	@if fgrep ${LATEXWARNING} ${THESIS}.log; then echo "+++ The following warnings were found +++"; ${FGREP} ${LATEXWARNING} ${THESIS}.log; else echo "+++ No warnings found +++"; fi
@@ -83,7 +110,7 @@ texcount:
 	pdftops ${THESIS}.pdf; ps2ascii ${THESIS}.ps | wc -w
 
 clean:
-	@-rm *.aux *.log *.blg *.bbl *.lof *.lot *.toc *.fff *.out *.ps *~
+	@-rm *.aux *.log *.blg *.bbl *.lof *.lot *.toc *.fff *.out *.ps *nls *ilg *.nlo *nlo-old *~
 
 allclean: clean $(CLEANDIRS)
 $(CLEANDIRS): 

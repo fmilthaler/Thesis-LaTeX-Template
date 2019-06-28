@@ -33,12 +33,14 @@ optional.
 ## Features
 - Supports PDFLaTeX, LuaLaTeX
 - Customised Page layouts, Header and Footer styles
+- A Nomenclature with subgroups
 - Examples for fancy figures (using Ti*k*Z) and Tables (using pgfplotstable), as well as support for very large tables that need to be rotated to fit on a page.
 - File structure to separate files of different chapters
 - A Bash script automatically includes all your `.bib` files in one file `references/references.tex`, that way you can organise and split your references across several `.bib` files without keeping track of them (without manually updating `\bibliography{...}` in your `.tex` file)
 - Besides having a good file structure, this template provides recursive use of Makefiles. The **Makefiles ensure a minimum number of compilations to resolve all changes** in references/citations, thus the Makefiles offer **similar benefits of the tool `latexmk` and they even go beyond**. **This template stands out from others due to the customised Makefiles**. They allow for (please find a more detailled description of the Makefile's targets and how to use it further below):
   - creating your thesis as a pdf,
   - automatically detecting changes in references and automatically running LaTeX on your document again (only if required), until all references (in bibliography or to floating objects) are resolved.
+  - automatically detecting changes in your nomenclature (if present) and **building/updating the nomenclature if and only if changes were found**, in order to ensure **minimal compilation time**.
   - creating separate image files (e.g. with Ti*k*Z/PGFPlots) stored in subdirectories,
   - print out warnings from LaTeX output files,
   - spellcheck your `.tex` files,
@@ -65,9 +67,12 @@ As mentioned above, one of the main features of this template is the comprehensi
 - `ref`: executes the target `references` in `./references/Makefile`, which in turn executes the bash script `./references/create_bib_list.sh` which collects the names of all `.bib` files in `./references/` and includes them in a newly created file `./references/references.tex`. This can be included in your main LaTeX file (here: `thesis.tex`); example: imagine you have *A.bib*, *B.bib*, *C.bib* in the directory `./references/`, `make ref` creates `./references/references.tex` which has the following LaTeX command in it: `\bibliography{references/A,references/B,references/C}`. **Note:** Do not manually edit `references/references.tex` as it is automatically overwritten by the script every time you compile your thesis.
 - `run`: runs LaTeX (by default: `pdflatex`) on `thesis.tex`; all required files, such as image files are required/expected to be in place, otherwise this operation will fail.
 - `bib`: first executes `ref`, then: if `thesis.aux` does not exist, it executes `run`, followed by BibTeX (`bibtex thesis`)
-- `thesis`: first it executes `run` and `bib` in that order; then the logfile `thesis.log` is scanned for references of missing/changed citations, multiple/changed labels, and rerun suggestions, and executes `run` at each check of the logfile; finally, after having finished the checks and reruns, it prints out the warnings LaTeX provides in its logfile by executing `make warnings` (see below)
+- `index`: executes `makeindex ${THESIS}.nlo -s nomencl.ist -o ${THESIS}.nls`, required for building a nomenclature.
+- `thesis`: first it executes `run`, `bib`, and `nomtest` in that order; then the logfile `thesis.log` is scanned for references of missing/changed citations, multiple/changed labels, and rerun suggestions, and executes `run` at each check of the logfile; finally, after having finished the checks and reruns, it prints out the warnings LaTeX provides in its logfile by executing `make warnings` (see below)
 - `imagedirs`: executes the target `all` in each subdirectory defined in `IMAGEDIRS` (this variable is defined in this Makefile); this is useful if some images are done with Ti*k*Z/PGFPlots, thus you can create standalone pdf files (which are vector graphics) of your Ti*k*Z/PGFPlots graphics that you then include in your main LaTeX document. This target `imagedirs` allows you to compile all of these graphics to be compiled on the fly. **Note:** This step is beneficial if you are using PGFPlots to read in lots of data points from data files to create a beautiful plot of your results. This process can take some time, hence you do not want this to be processed every time you change the text in your thesis. As the standalone `.pdf` graphic is a vector graphic, you do not loose quality.
 - `fullthesis`: executes `allclean`, `imagedirs`, `ref`, `thesis` in that order; basically it removes all previous output files (in this and subdirectories) and builds your thesis from scratch (including graphics, e.g. Ti*k*Z/PGFPlots graphics as explained above)
+- `nomtest`: checking if there were changes made on the nomenclature the last time the main document was compiled. If so, it executes `make nomupdate`. **Note**: this target ensures a minimal number of LaTeX compilation neccessary to build/update the nomenclature.
+- `nomupdate`: executes `index` and `run` in that order. Gets triggered when `nomtest` found changes in the nomenclature and makes sure the changes are updated in the document.
 - `warnings`: scans the LaTeX logfile `thesis.log` for warnings and prints out the warnings on the command-line, certain keywords are printed in red for better visibility.
 - `spellcheck`: uses the command-line tool *Gnu Aspell* (`aspell`) to spellcheck all `.tex` files in the subdirectories defined in `TEXDIRS` (this variable is defined in this Makefile); just make sure you keep `TEXDIRS` up to date when you add more subdirectories with `.tex` files, and it will find them; by default, the language is set to English (GB), if you need to adjust this, find the option in the file `./common.mk`
 - `texcount`: uses the command-line tool *TeXcount* (`texcount`) as well as *ps2ascii* (`ps2ascii`) followed by a simple `wc -w` to determine the word count in your document. Note: both are not very accurate. 
@@ -89,6 +94,7 @@ See a list and short description of directories and files in this repository to 
   + `loadlistings.tex` (some definitions for printing code)
   + `myinformation.tex` (commands for your name, title, university, etc)
   + `mycommands.tex` (defining custom commands, e.g. mathematical notation)
+  + `nomenclature.tex` (defining entries/groups of the nomenclature)
 + `titlepage/` (files for your titlepage)
   + `Makefile`
   + `logo_placeholder.png` (placeholder logo)

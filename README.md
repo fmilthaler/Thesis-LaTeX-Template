@@ -71,7 +71,7 @@ As mentioned above, one of the main features of this template is the comprehensi
 
 Each target is executed on the command-line with `make <target-name>`.
 
-The most frequently used - and the once you should definitely know about - targets are:
+The most frequently used - and the ones you should definitely know about - targets are:
 - `thesis`: this target compiles your main document `thesis.tex`, it also runs through BibTeX to sort out your bibliography. Moreover, it automatically detects changes in references/labels/citations and recompiles your target if required in order to resolve those changes. It does expect all images included in the document to be present (see target `imagedirs` below). Finally, it automatically detects a nomenclature, and if so, it also detects if changes were made to it. If both criteria are satisfied, the document is automatically updated to reflect the changes in the nomenclature.
 - `fullthesis`: in case of you separating the compilation of some plots/graphics from your main document (in order to save compile time), those Ti*k*Z graphics/PGFPlots need to be compiled (*before* you run `make thesis` and obviously every time you make changes to those graphics/plots. `fullthesis` invokes another target called `imagedirs` that takes care of thos graphics/plots. It compiles all standalone `texfiles` resulting in `.pdf` files in subdirectories `images`. Those `pdf` files can then be included in the main document. After that step, `fullthesis` invokes `thesis` to compile the main document.
 
